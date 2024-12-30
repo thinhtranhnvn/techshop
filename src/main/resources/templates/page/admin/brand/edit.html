@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <form class="py-5" action="/admin/brand/edit-submit" method="post">
+        <div class="container mw-810px">
+            <h1 class="mb-5"> Edit Brand </h1>
+
+            <div class="mb-3 text-danger" th:if="${edit_error != null}" th:text="|${edit_error}|" />
+
+            <input type="hidden" th:value="${brand != null} ? ${brand.getId()} : ${submitted_id}" />
+
+            <div class="mb-3 mw-360px">
+                <label for="name" class="form-label"> Name </label>
+                <input type="text" class="form-control" name="name" th:value="${brand != null} ? ${brand.getName()} : ${submitted_name}" id="name" required autofocus />
+            </div>
+
+            <div class="mb-3 mw-360px">
+                <label for="image-url" class="form-label"> Image URL </label>
+                <input type="text" class="form-control" name="image-url" th:value="${brand != null} ? ${brand.getImageURL()} : ${submitted_image_url}" id="image-url" required />
+            </div>
+
+            <div class="mb-4 mw-360px">
+                <label for="slug" class="form-label"> Slug </label>
+                <input type="text" class="form-control" name="slug" th:value="${brand != null} ? ${brand.getSlug()} : ${submitted_slug}" id="slug" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary"> Submit </button>
+            <button type="reset" class="btn btn-secondary"> Reset </button>
+        </div>
+    </form>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

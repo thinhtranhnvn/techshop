@@ -1,4 +1,4 @@
-package com.semidev.techshop.controller.admin.product;
+package com.semidev.techshop.controller.admin.brand;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class AdminBrandAddController {
             return "redirect:" + "/admin/login";
         }
         else {
-            model.addAttribute("title", "Add brand");
+            model.addAttribute("title", "Add Brand");
             model.addAttribute("submitted_name", session.getAttribute("submitted_name"));
             model.addAttribute("submitted_image_url", session.getAttribute("submitted_image_url"));
             model.addAttribute("submitted_slug", session.getAttribute("submitted_slug"));

@@ -1,4 +1,4 @@
-package com.semidev.techshop.controller.admin.product;
+package com.semidev.techshop.controller.admin.brand;
 
 import com.semidev.techshop.model.entity.Brand;
 import com.semidev.techshop.model.service.BrandService;

@@ -111,6 +111,45 @@ public class BrandService {
         }
     }
 
+    public static Brand selectBrandById(int id) throws Exception {
+        try (Connection connection = Database.getConnection()) {
+            String sql = "SELECT id, name, image_url, slug, edited_date, edited_by "
+                       + "FROM brand "
+                       + "WHERE id = %d";
+            sql = String.format(sql, id);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                String name     = result.getString("name");
+                String imageURL = result.getString("image_url");
+                String slug     = result.getString("slug");
+
+                String dateStr = result.getString("edited_date");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime editedDate = LocalDateTime.parse(dateStr, formatter);
+
+                String editedBy = result.getString("edited_by");
+
+                return Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
+            }
+            else {
+                return null;
+            }
+        }
+        catch (Exception exc) {
+            throw exc;
+        }
+        finally {
+            try {
+                Database.closeConnection();
+            }
+            catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        }
+    }
+
     public static ArrayList<Brand> selectBrandOrderByEditedDateDescLimitOffset(int limit, int offset) throws Exception {
         try (Connection connection = Database.getConnection()) {
             String sql = "SELECT id, name, image_url, slug, edited_date, edited_by "
