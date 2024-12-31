@@ -18,7 +18,7 @@ public class AdminBrandEditController {
     @GetMapping("/admin/brand/edit")
     public String accept(
         HttpServletRequest request, HttpSession session, Model model,
-        @RequestParam(name="id", required=true) String id
+        @RequestParam(name="id", required=true) int id
     ) {
         if (session.getAttribute("admin_username") == null) {
             session.setAttribute("return_url", request.getRequestURI());
@@ -28,11 +28,10 @@ public class AdminBrandEditController {
             model.addAttribute("title", "Edit Brand");
 
             if (session.getAttribute("submitted_name") == null) {
-                int brandId = Integer.parseInt(id);
                 Brand brand = null;
                 
                 try {
-                    brand = BrandService.selectBrandById(brandId);
+                    brand = BrandService.selectBrandById(id);
                 }
                 catch (Exception exc) {
                     exc.printStackTrace();

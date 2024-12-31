@@ -14,11 +14,12 @@ import java.time.LocalDateTime;
 
 
 @Controller
-public class AdminBrandAddSubmitController {
+public class AdminBrandEditSubmitController {
 
-    @PostMapping("/admin/brand/add/submit")
+    @PostMapping("/admin/brand/edit/submit")
     public String accept(
         HttpServletRequest request, HttpSession session, Model model,
+        @RequestParam(name="id", required=true) int id,
         @RequestParam(name="name", required=true) String name,
         @RequestParam(name="image-url", required=true) String imageURL,
         @RequestParam(name="slug", required=true) String slug
@@ -28,6 +29,7 @@ public class AdminBrandAddSubmitController {
             return "redirect:" + "/admin/login";
         }
         else {
+            session.setAttribute("submitted_id", id);
             session.setAttribute("submitted_name", name);
             session.setAttribute("submitted_image_url", imageURL);
             session.setAttribute("submitted_slug", slug);
@@ -35,46 +37,46 @@ public class AdminBrandAddSubmitController {
             try {
                 Brand matchedSlugRecord = BrandService.selectBrandBySlug(slug);
                 
-                if (matchedSlugRecord == null) {
+                if (matchedSlugRecord == null || matchedSlugRecord.getId() == id) {
                     /* do nothing */;
                 }
                 else {
-                    session.setAttribute("add_error", "Slug already existed");
-                    return "redirect:" + "/admin/brand/add";
+                    session.setAttribute("edit_error", "Slug already existed");
+                    return "redirect:" + "/admin/brand/edit?id=" + id;
                 }
             }
             catch (Exception exc) {
                 exc.printStackTrace();
-                session.setAttribute("add_error", "Failed to add brand");
-                return "redirect:" + "/admin/brand/add";
+                session.setAttribute("edit_error", "Failed to update brand");
+                return "redirect:" + "/admin/brand/edit?id=" + id;
             }
 
             Brand record = null;
 
             try {
-                int id = BrandService.selectLatestBrandId(); id += 1;
                 LocalDateTime editedDate = LocalDateTime.now();
                 String editedBy = (String) session.getAttribute("admin_username");
                 record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
             }
             catch (Exception exc) {
                 exc.printStackTrace();
-                session.setAttribute("add_error", exc.getMessage());
-                return "redirect:" + "/admin/brand/add";
+                session.setAttribute("edit_error", exc.getMessage());
+                return "redirect:" + "/admin/brand/edit?id=" + id;
             }
 
             try {
-                BrandService.insertIntoBrand(record);
+                BrandService.updateBrand(record);
+                session.setAttribute("submitted_id", null);
                 session.setAttribute("submitted_name", null);
                 session.setAttribute("submitted_image_url", null);
                 session.setAttribute("submitted_slug", null);
-                session.setAttribute("add_error", null);
+                session.setAttribute("edit_error", null);
                 return "redirect:" + "/admin/brand";
             }
             catch (Exception exc) {
                 exc.printStackTrace();
-                session.setAttribute("add_error", "Failed to add brand");
-                return "redirect:" + "/admin/brand/add";
+                session.setAttribute("edit_error", "Failed to update brand");
+                return "redirect:" + "/admin/brand/edit?id=" + id;
             }
         }
     }

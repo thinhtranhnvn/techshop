@@ -220,4 +220,37 @@ public class BrandService {
         }
     }
 
+    public static void updateBrand(Brand record) throws Exception {
+        try (Connection connection = Database.getConnection()) {
+            int id            = record.getId();
+            String name       = record.getName();
+            String imageURL   = record.getImageURL();
+            String slug       = record.getSlug();
+            String editedDate = record.getEditedDate().toString();
+            String editedBy   = record.getEditedBy();
+
+            String sql = "UPDATE brand "
+                       + "SET name = '%s', "
+                       + "    image_url = '%s', "
+                       + "    slug = '%s', "
+                       + "    edited_date = '%s', "
+                       + "    edited_by = '%s' "
+                       + "WHERE id = %d";
+            sql = String.format(sql, name, imageURL, slug, editedDate, editedBy, id);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.executeUpdate();
+        }
+        catch (Exception exc) {
+            throw exc;
+        }
+        finally {
+            try {
+                Database.closeConnection();
+            }
+            catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        }
+    }
+
 }
