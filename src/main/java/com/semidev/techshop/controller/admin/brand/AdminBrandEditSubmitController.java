@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Controller
 public class AdminBrandEditSubmitController {
 
-    @PostMapping("/admin/brand/edit/submit")
+    @PostMapping("/admin/brand/edit-submit")
     public String accept(
         HttpServletRequest request, HttpSession session, Model model,
         @RequestParam(name="id", required=true) int id,

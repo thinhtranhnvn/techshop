@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AdminLoginSubmitController {
 
-    @PostMapping("/admin/login/submit")
+    @PostMapping("/admin/login-submit")
     public String accept(
         HttpServletRequest request, HttpSession session, Model model,
         @RequestParam(name="username", required=true) String username,

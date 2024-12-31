@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Controller
 public class AdminBrandAddSubmitController {
 
-    @PostMapping("/admin/brand/add/submit")
+    @PostMapping("/admin/brand/add-submit")
     public String accept(
         HttpServletRequest request, HttpSession session, Model model,
         @RequestParam(name="name", required=true) String name,
