@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -35,7 +35,7 @@ public class AdminBrandIndexController {
                     model.addAttribute("index_error", "Invalid page number");
                 }
                 else {
-                    ArrayList<Brand> brandList = BrandService.selectBrandOrderByEditedDateDescLimitOffset(brandPerPage, (currentPage - 1) * brandPerPage);
+                    List<Brand> brandList = BrandService.selectBrandOrderByEditedDateDescLimitOffset(brandPerPage, (currentPage - 1) * brandPerPage);
                     model.addAttribute("brand_list", brandList);
                     model.addAttribute("previous_page", (1 < currentPage) ? (currentPage - 1) : null);
                     model.addAttribute("next_page", (currentPage < maxPage) ? (currentPage + 1) : null);
