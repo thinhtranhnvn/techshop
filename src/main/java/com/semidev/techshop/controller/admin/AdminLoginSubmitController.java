@@ -1,6 +1,8 @@
 package com.semidev.techshop.controller.admin;
 
-import com.semidev.techshop.model.entity.Administrator;
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorId;
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorPassword;
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorUsername;
 import com.semidev.techshop.model.service.AdministratorService;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 
 @Controller
@@ -22,13 +25,11 @@ public class AdminLoginSubmitController {
         @RequestParam(name="password", required=true) String password
     ) {
         try {
-            Administrator admin = AdministratorService.selectAdministratorByLoginInfo(username, password);
-
+            var admin = AdministratorService.selectAdministratorByLoginInfo(username, password);
             if (admin != null) {
                 session.setAttribute("admin_username", admin.getUsername());
-
                 if (session.getAttribute("return_url") != null) {
-                    String returnUrl = (String) session.getAttribute("return_url");
+                    var returnUrl = (String) session.getAttribute("return_url");
                     session.setAttribute("return_url", null);
                     return "redirect:" + returnUrl;
                 }
@@ -40,14 +41,11 @@ public class AdminLoginSubmitController {
                 session.setAttribute("submitted_username", username);
                 session.setAttribute("submitted_password", password);
                 session.setAttribute("login_error", "Invalid login info");
-
                 return "redirect:" + session.getAttribute("return_url");
             }
         }
-        catch (Exception exc) {
-            exc.printStackTrace();
+        catch (ExceptionInvalidAdministratorId | ExceptionInvalidAdministratorPassword | ExceptionInvalidAdministratorUsername | SQLException exc) {
             session.setAttribute("login_error", "Failed login");
-
             return "redirect:" + session.getAttribute("return_url");
         }
     }

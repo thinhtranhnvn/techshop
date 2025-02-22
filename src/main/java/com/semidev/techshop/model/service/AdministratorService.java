@@ -1,11 +1,10 @@
 package com.semidev.techshop.model.service;
 
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorId;
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorPassword;
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorUsername;
 import com.semidev.techshop.model.entity.Administrator;
-import com.semidev.techshop.model.service.Database;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class AdministratorService {
@@ -13,33 +12,36 @@ public class AdministratorService {
     public static Administrator selectAdministratorByLoginInfo(
         String username,
         String password
-    ) throws Exception {
-        try (Connection connection = Database.getConnection()) {
-            String sql = "SELECT id, username, password "
-                       + "FROM administrator "
-                       + "WHERE username = '%s' "
-                       + "AND password = '%s'";
+    ) throws SQLException
+           , ExceptionInvalidAdministratorId
+           , ExceptionInvalidAdministratorUsername
+           , ExceptionInvalidAdministratorPassword
+    {
+        try (var connection = Database.getConnection()) {
+            var sql = "SELECT id, username, password "
+                    + "FROM administrator "
+                    + "WHERE username = '%s' "
+                    + "AND password = '%s'";
             sql = String.format(sql, username, password);
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet result = statement.executeQuery();
-
+            var statement = connection.prepareStatement(sql);
+            var result = statement.executeQuery();
             if (result.next()) {
-                int id = result.getInt("id");
+                var id = result.getInt("id");
                 return Administrator.createInstance(id, username, password);
             }
             else {
                 return null;
             }
         }
-        catch (Exception exc) {
+        catch (SQLException | ExceptionInvalidAdministratorId | ExceptionInvalidAdministratorUsername | ExceptionInvalidAdministratorPassword exc) {
             throw exc;
         }
         finally {
             try {
                 Database.closeConnection();
             }
-            catch (Exception exc) {
-                exc.printStackTrace();
+            catch (SQLException exc) {
+                throw exc;
             }
         }
     }

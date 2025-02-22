@@ -17,7 +17,6 @@ public class AdminLoginController {
             session.setAttribute("submitted_username", null);
             session.setAttribute("submitted_password", null);
             session.setAttribute("login_error", null);
-
             if (session.getAttribute("return_url") != null)
                 return "redirect:" + session.getAttribute("return_url");
             else
@@ -28,7 +27,6 @@ public class AdminLoginController {
             model.addAttribute("submitted_username", session.getAttribute("submitted_username"));
             model.addAttribute("submitted_password", session.getAttribute("submitted_password"));
             model.addAttribute("login_error", session.getAttribute("login_error"));
-
             return "page/admin/login.html";
         }
     }

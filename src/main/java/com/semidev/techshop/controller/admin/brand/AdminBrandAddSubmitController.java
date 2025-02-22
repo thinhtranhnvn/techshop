@@ -1,5 +1,11 @@
 package com.semidev.techshop.controller.admin.brand;
 
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
+import com.semidev.techshop.exception.ExceptionInvalidBrandId;
+import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
+import com.semidev.techshop.exception.ExceptionInvalidBrandName;
+import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
 import com.semidev.techshop.model.entity.Brand;
 import com.semidev.techshop.model.service.BrandService;
 
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 
@@ -31,39 +38,19 @@ public class AdminBrandAddSubmitController {
             session.setAttribute("submitted_name", name);
             session.setAttribute("submitted_image_url", imageURL);
             session.setAttribute("submitted_slug", slug);
-
             try {
-                Brand matchedSlugRecord = BrandService.selectBrandBySlug(slug);
-                
+                var matchedSlugRecord = BrandService.selectBrandBySlug(slug);
                 if (matchedSlugRecord == null) {
-                    /* do nothing */;
+                    /* do nothing */
                 }
                 else {
                     session.setAttribute("add_error", "Slug already existed");
                     return "redirect:" + "/admin/brand/add";
                 }
-            }
-            catch (Exception exc) {
-                exc.printStackTrace();
-                session.setAttribute("add_error", "Failed to add brand");
-                return "redirect:" + "/admin/brand/add";
-            }
-
-            Brand record = null;
-
-            try {
-                int id = BrandService.selectLatestBrandId(); id += 1;
-                LocalDateTime editedDate = LocalDateTime.now();
-                String editedBy = (String) session.getAttribute("admin_username");
-                record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
-            }
-            catch (Exception exc) {
-                exc.printStackTrace();
-                session.setAttribute("add_error", exc.getMessage());
-                return "redirect:" + "/admin/brand/add";
-            }
-
-            try {
+                var id = BrandService.selectLatestBrandId(); id += 1;
+                var editedDate = LocalDateTime.now();
+                var editedBy = (String) session.getAttribute("admin_username");
+                var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
                 BrandService.insertIntoBrand(record);
                 session.setAttribute("submitted_name", null);
                 session.setAttribute("submitted_image_url", null);
@@ -71,9 +58,32 @@ public class AdminBrandAddSubmitController {
                 session.setAttribute("add_error", null);
                 return "redirect:" + "/admin/brand";
             }
-            catch (Exception exc) {
-                exc.printStackTrace();
+            catch (SQLException exc) {
                 session.setAttribute("add_error", "Failed to add brand");
+                return "redirect:" + "/admin/brand/add";
+            }
+            catch (ExceptionInvalidBrandId exc) {
+                session.setAttribute("add_error", "Invalid brand id");
+                return "redirect:" + "/admin/brand/add";
+            }
+            catch (ExceptionInvalidBrandName exc) {
+                session.setAttribute("add_error", "Invalid brand name");
+                return "redirect:" + "/admin/brand/add";
+            }
+            catch (ExceptionInvalidBrandImageURL exc) {
+                session.setAttribute("add_error", "Invalid image URL");
+                return "redirect:" + "/admin/brand/add";
+            }
+            catch (ExceptionInvalidBrandSlug exc) {
+                session.setAttribute("add_error", "Invalid brand slug");
+                return "redirect:" + "/admin/brand/add";
+            }
+            catch (ExceptionInvalidBrandEditedBy exc) {
+                session.setAttribute("add_error", "Invalid editor");
+                return "redirect:" + "/admin/brand/add";
+            }
+            catch (ExceptionInvalidBrandEditedDate exc) {
+                session.setAttribute("add_error", "Invalid edited date");
                 return "redirect:" + "/admin/brand/add";
             }
         }

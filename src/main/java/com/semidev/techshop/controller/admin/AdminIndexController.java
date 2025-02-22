@@ -11,7 +11,10 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AdminIndexController {
 
-    @GetMapping("/admin")
+    @GetMapping({
+        "/admin",
+        "/admin/"
+    })
     public String accept(HttpServletRequest request, HttpSession session, Model model) {
         if (session.getAttribute("admin_username") == null) {
             session.setAttribute("return_url", request.getRequestURI());

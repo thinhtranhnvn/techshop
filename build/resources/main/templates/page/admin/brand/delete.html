@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Deleted Brand </h1>
+
+            <table class="table mw-810px">
+                <tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td><img class="w-100px" th:src="@{|${brand.getImageURL()}|}" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Id </th>
+                        <td th:text="@{|${brand.getId()}|}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Name </th>
+                        <td th:text="@{|${brand.getName()}|}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Slug </th>
+                        <td th:text="@{|${brand.getSlug()}|}" />
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

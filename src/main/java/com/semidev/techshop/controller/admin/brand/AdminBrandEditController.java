@@ -1,5 +1,11 @@
 package com.semidev.techshop.controller.admin.brand;
 
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
+import com.semidev.techshop.exception.ExceptionInvalidBrandId;
+import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
+import com.semidev.techshop.exception.ExceptionInvalidBrandName;
+import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
 import com.semidev.techshop.model.entity.Brand;
 import com.semidev.techshop.model.service.BrandService;
 
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 
 @Controller
@@ -26,18 +33,14 @@ public class AdminBrandEditController {
         }
         else {
             model.addAttribute("title", "Edit Brand");
-
             if (session.getAttribute("submitted_name") == null) {
                 Brand brand = null;
-                
                 try {
                     brand = BrandService.selectBrandById(id);
                 }
-                catch (Exception exc) {
-                    exc.printStackTrace();
+                catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug | SQLException exc) {
                     model.addAttribute("edit_error", "Failed database connection");
                 }
-                
                 model.addAttribute("brand", brand);
             }
             else {
@@ -48,7 +51,6 @@ public class AdminBrandEditController {
                 model.addAttribute("submitted_slug", session.getAttribute("submitted_slug"));
                 model.addAttribute("edit_error", session.getAttribute("edit_error"));
             }
-
             return "page/admin/brand/edit.html";
         }
     }

@@ -1,19 +1,26 @@
 package com.semidev.techshop.model.entity;
 
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
+import com.semidev.techshop.exception.ExceptionInvalidBrandId;
+import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
+import com.semidev.techshop.exception.ExceptionInvalidBrandName;
+import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
+
 import java.time.LocalDateTime;
 
 
 public class Brand {
 
-    private int id;
+    private Integer id;
 
         public int getId() {
             return this.id;
         }
 
-        public void setId(int id) throws Exception {
-            if (id < 0)
-                throw new Exception("Invalid brand id");
+        public void setId(int id) throws ExceptionInvalidBrandId {
+            if (id < 1)
+                throw new ExceptionInvalidBrandId("Invalid brand id");
             else
                 this.id = id;
         }
@@ -24,9 +31,9 @@ public class Brand {
             return this.name;
         }
 
-        public void setName(String name) throws Exception {
+        public void setName(String name) throws ExceptionInvalidBrandName {
             if (name == null || name.isEmpty())
-                throw new Exception("Invalid brand name");
+                throw new ExceptionInvalidBrandName("Invalid brand name");
             else
                 this.name = name;
         }
@@ -37,9 +44,9 @@ public class Brand {
             return this.imageURL;
         }
 
-        public void setImageURL(String imageURL) throws Exception {
+        public void setImageURL(String imageURL) throws ExceptionInvalidBrandImageURL {
             if (imageURL == null || imageURL.isEmpty())
-                throw new Exception("Invalid brand image-URL");
+                throw new ExceptionInvalidBrandImageURL("Invalid brand image-URL");
             else
                 this.imageURL = imageURL;
         }
@@ -50,9 +57,9 @@ public class Brand {
             return this.slug;
         }
 
-        public void setSlug(String slug) throws Exception {
+        public void setSlug(String slug) throws ExceptionInvalidBrandSlug {
             if (slug == null || slug.isEmpty())
-                throw new Exception("Invalid brand slug");
+                throw new ExceptionInvalidBrandSlug("Invalid brand slug");
             else
                 this.slug = slug;
         }
@@ -63,9 +70,9 @@ public class Brand {
             return this.editedDate;
         }
 
-        public void setEditedDate(LocalDateTime editedDate) throws Exception {
+        public void setEditedDate(LocalDateTime editedDate) throws ExceptionInvalidBrandEditedDate {
             if (editedDate == null)
-                throw new Exception("Invalid brand edited-date");
+                throw new ExceptionInvalidBrandEditedDate("Invalid brand edited-date");
             else
                 this.editedDate = editedDate;
         }
@@ -76,18 +83,13 @@ public class Brand {
             return this.editedBy;
         }
 
-        public void setEditedBy(String editedBy) throws Exception {
+        public void setEditedBy(String editedBy) throws ExceptionInvalidBrandEditedBy {
             if (editedBy == null || editedBy.isEmpty())
-                throw new Exception("Invalid brand edited-by");
+                throw new ExceptionInvalidBrandEditedBy("Invalid brand edited-by");
             else
                 this.editedBy = editedBy;
         }
-
-
-    private Brand() {
-        /* do nothing */;
-    }
-
+    
     public static Brand createInstance(
         int           id,
         String        name,
@@ -95,9 +97,15 @@ public class Brand {
         String        slug,
         LocalDateTime editedDate,
         String        editedBy
-    ) throws Exception {
+    ) throws ExceptionInvalidBrandId
+           , ExceptionInvalidBrandName
+           , ExceptionInvalidBrandImageURL
+           , ExceptionInvalidBrandSlug
+           , ExceptionInvalidBrandEditedDate
+           , ExceptionInvalidBrandEditedBy
+    {
         try {
-            Brand instance = new Brand();
+            var instance = new Brand();
             instance.setId(id);
             instance.setName(name);
             instance.setImageURL(imageURL);
@@ -106,9 +114,8 @@ public class Brand {
             instance.setEditedBy(editedBy);
             return instance;
         }
-        catch (Exception exc) {
+        catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug exc) {
             throw exc;
         }
     }
-
 }

@@ -1,5 +1,9 @@
 package com.semidev.techshop.model.entity;
 
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorId;
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorUsername;
+import com.semidev.techshop.exception.ExceptionInvalidAdministratorPassword;
+
 
 public class Administrator {
 
@@ -9,9 +13,9 @@ public class Administrator {
             return this.id;
         }
 
-        public void setId(int id) throws Exception {
+        public void setId(int id) throws ExceptionInvalidAdministratorId {
             if (id < 0)
-                throw new Exception("Invalid admin id");
+                throw new ExceptionInvalidAdministratorId("Invalid admin id");
             else
                 this.id = id;
         }
@@ -22,9 +26,9 @@ public class Administrator {
             return this.username;
         }
 
-        public void setUsername(String username) throws Exception {
+        public void setUsername(String username) throws ExceptionInvalidAdministratorUsername {
             if (username == null || username.isEmpty())
-                throw new Exception("Invalid administrator username");
+                throw new ExceptionInvalidAdministratorUsername("Invalid administrator username");
             else
                 this.username = username;
         }
@@ -35,32 +39,31 @@ public class Administrator {
             return this.password;
         }
 
-        public void setPassword(String password) throws Exception {
+        public void setPassword(String password) throws ExceptionInvalidAdministratorPassword {
             if (password == null || password.isEmpty())
-                throw new Exception("Invalid administrator password");
+                throw new ExceptionInvalidAdministratorPassword("Invalid administrator password");
             else
                 this.password = password;
         }
-
-    private Administrator() {
-        /* do nothing */;
-    }
-
+        
     public static Administrator createInstance(
         int    id,
         String username,
         String password
-    ) throws Exception {
+    ) throws ExceptionInvalidAdministratorId
+           , ExceptionInvalidAdministratorUsername
+           , ExceptionInvalidAdministratorPassword
+    {
         try {
-            Administrator instance = new Administrator();
+            var instance = new Administrator();
             instance.setId(id);
             instance.setUsername(username);
             instance.setPassword(password);
             return instance;
         }
-        catch (Exception exc) {
+        catch (ExceptionInvalidAdministratorId | ExceptionInvalidAdministratorUsername | ExceptionInvalidAdministratorPassword exc) {
             throw exc;
         }
     }
-
+    
 }

@@ -30,32 +30,23 @@ create table brand (
 );
 
 create table product (
-    id            int          not null auto_increment primary key,
-    brand_id      int          not null,
-    name          varchar(128) not null,
-    price         float        not null,
-    feature       mediumtext,
-    promotion_id  int,
-    description   mediumtext,
-    specification mediumtext,
-    slug          varchar(128) not null unique,
-    edited_date   datetime     not null,
-    edited_by     varchar(32)  not null
-);
-
-create table promotion (
-    id          int        not null auto_increment primary key,
-    description mediumtext not null,
-    discount    float      not null
+    id                int          not null auto_increment primary key,
+    brand_id          int          not null,
+    name              varchar(128) not null,
+    price             float        not null,
+    short_description mediumtext,
+    description       mediumtext,
+    specification     mediumtext,
+    promotion         mediumtext,
+    discount          float,
+    slug              varchar(128) not null unique,
+    edited_date       datetime     not null,
+    edited_by         varchar(32)  not null
 );
 
 alter table product
 add constraint fk_product_brand
 foreign key (brand_id) references brand(id);
-
-alter table product
-add constraint fk_product_promotion
-foreign key (promotion_id) references promotion(id);
 
 --
 
