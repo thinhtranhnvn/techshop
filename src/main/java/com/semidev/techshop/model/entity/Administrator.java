@@ -14,7 +14,7 @@ public class Administrator {
         }
 
         public void setId(int id) throws ExceptionInvalidAdministratorId {
-            if (id < 0)
+            if (id < 1)
                 throw new ExceptionInvalidAdministratorId("Invalid admin id");
             else
                 this.id = id;
@@ -61,7 +61,11 @@ public class Administrator {
             instance.setPassword(password);
             return instance;
         }
-        catch (ExceptionInvalidAdministratorId | ExceptionInvalidAdministratorUsername | ExceptionInvalidAdministratorPassword exc) {
+        catch (ExceptionInvalidAdministratorId
+                | ExceptionInvalidAdministratorUsername
+                | ExceptionInvalidAdministratorPassword
+                exc
+        ) {
             throw exc;
         }
     }

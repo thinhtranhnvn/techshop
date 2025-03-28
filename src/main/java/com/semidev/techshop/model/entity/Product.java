@@ -2,14 +2,15 @@ package com.semidev.techshop.model.entity;
 
 import com.semidev.techshop.exception.ExceptionInvalidBrandId;
 import com.semidev.techshop.exception.ExceptionInvalidProductDescription;
+import com.semidev.techshop.exception.ExceptionInvalidProductDiscount;
 import com.semidev.techshop.exception.ExceptionInvalidProductEditedBy;
 import com.semidev.techshop.exception.ExceptionInvalidProductEditedDate;
 import com.semidev.techshop.exception.ExceptionInvalidProductId;
 import com.semidev.techshop.exception.ExceptionInvalidProductName;
 import com.semidev.techshop.exception.ExceptionInvalidProductPrice;
-import com.semidev.techshop.exception.ExceptionInvalidProductShortDescription;
 import com.semidev.techshop.exception.ExceptionInvalidProductSlug;
 import com.semidev.techshop.exception.ExceptionInvalidProductSpecification;
+import com.semidev.techshop.exception.ExceptionNullProductPromotion;
 
 import java.time.LocalDateTime;
 
@@ -68,17 +69,31 @@ public class Product {
                 this.price = price;
         }
         
-    private String shortDescription;
     
-        public String getShortDescription() {
-            return this.shortDescription;
+    private Float discount;
+    
+        public float getDiscount() {
+            return this.discount;
         }
         
-        public void setShortDescription(String shortDescription) throws ExceptionInvalidProductShortDescription {
-            if (shortDescription == null || shortDescription.isEmpty())
-                throw new ExceptionInvalidProductShortDescription("Invalid product short description");
+        public void setDiscount(float discount) throws ExceptionInvalidProductDiscount {
+            if (discount < 0 || 100 < discount)
+                throw new ExceptionInvalidProductDiscount("Invalid product discount");
             else
-                this.shortDescription = shortDescription;
+                this.discount = discount;
+        }
+    
+    private String promotion;
+    
+        public String getPromotion() {
+            return this.promotion;
+        }
+        
+        public void setPromotion(String promotion) throws ExceptionNullProductPromotion {
+            if (promotion == null)
+                throw new ExceptionNullProductPromotion("Product promotion cannot be null");
+            else
+                this.promotion = promotion;
         }
     
     private String description;
@@ -146,12 +161,13 @@ public class Product {
                 this.editedBy = editedBy;
         }
         
-    public Product createInstance(
+    public static Product createInstance(
         int           id,
         int           brandId,
         String        name,
         float         price,
-        String        shortDescription,
+        float         discount,
+        String        promotion,
         String        description,
         String        specification,
         String        slug,
@@ -161,12 +177,13 @@ public class Product {
            , ExceptionInvalidBrandId
            , ExceptionInvalidProductName
            , ExceptionInvalidProductPrice
-           , ExceptionInvalidProductShortDescription
            , ExceptionInvalidProductDescription
            , ExceptionInvalidProductSpecification
            , ExceptionInvalidProductSlug
            , ExceptionInvalidProductEditedDate
            , ExceptionInvalidProductEditedBy
+           , ExceptionInvalidProductDiscount
+           , ExceptionNullProductPromotion
     {
         try {
             var instance = new Product();
@@ -174,7 +191,8 @@ public class Product {
             instance.setBrandId(brandId);
             instance.setName(name);
             instance.setPrice(price);
-            instance.setShortDescription(shortDescription);
+            instance.setDiscount(discount);
+            instance.setPromotion(promotion);
             instance.setDescription(description);
             instance.setSpecification(specification);
             instance.setSlug(slug);
@@ -182,7 +200,19 @@ public class Product {
             instance.setEditedBy(editedBy);
             return instance;
         }
-        catch (ExceptionInvalidBrandId | ExceptionInvalidProductDescription | ExceptionInvalidProductEditedBy | ExceptionInvalidProductEditedDate | ExceptionInvalidProductId | ExceptionInvalidProductName | ExceptionInvalidProductPrice | ExceptionInvalidProductShortDescription | ExceptionInvalidProductSlug | ExceptionInvalidProductSpecification exc) {
+        catch (ExceptionInvalidBrandId
+                | ExceptionInvalidProductDescription
+                | ExceptionInvalidProductEditedBy
+                | ExceptionInvalidProductEditedDate
+                | ExceptionInvalidProductId
+                | ExceptionInvalidProductName
+                | ExceptionInvalidProductPrice
+                | ExceptionInvalidProductSlug
+                | ExceptionInvalidProductSpecification
+                | ExceptionInvalidProductDiscount
+                | ExceptionNullProductPromotion
+                exc
+        ) {
             throw exc;
         }
     }

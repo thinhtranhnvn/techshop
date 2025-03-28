@@ -6,6 +6,7 @@ import com.semidev.techshop.exception.ExceptionInvalidBrandId;
 import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
 import com.semidev.techshop.exception.ExceptionInvalidBrandName;
 import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
+
 import com.semidev.techshop.model.entity.Brand;
 import com.semidev.techshop.model.service.BrandService;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -43,22 +45,21 @@ public class AdminBrandEditSubmitController {
             try {
                 var matchedSlugRecord = BrandService.selectBrandBySlug(slug);
                 if (matchedSlugRecord == null || matchedSlugRecord.getId() == id) {
-                    /* do nothing */
+                    var editedDate = LocalDateTime.now();
+                    var editedBy = (String) session.getAttribute("admin_username");
+                    var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
+                    BrandService.updateBrand(record);
+                    session.setAttribute("submitted_id", null);
+                    session.setAttribute("submitted_name", null);
+                    session.setAttribute("submitted_image_url", null);
+                    session.setAttribute("submitted_slug", null);
+                    session.setAttribute("edit_error", null);
+                    return "redirect:" + "/admin/brand";
                 }
                 else {
                     session.setAttribute("edit_error", "Slug already existed");
                     return "redirect:" + "/admin/brand/edit?id=" + id;
                 }
-                var editedDate = LocalDateTime.now();
-                var editedBy = (String) session.getAttribute("admin_username");
-                var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
-                BrandService.updateBrand(record);
-                session.setAttribute("submitted_id", null);
-                session.setAttribute("submitted_name", null);
-                session.setAttribute("submitted_image_url", null);
-                session.setAttribute("submitted_slug", null);
-                session.setAttribute("edit_error", null);
-                return "redirect:" + "/admin/brand";
             }
             catch (SQLException exc) {
                 session.setAttribute("edit_error", "Failed to update brand");

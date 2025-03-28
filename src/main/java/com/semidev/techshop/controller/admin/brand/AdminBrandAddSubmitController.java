@@ -41,22 +41,21 @@ public class AdminBrandAddSubmitController {
             try {
                 var matchedSlugRecord = BrandService.selectBrandBySlug(slug);
                 if (matchedSlugRecord == null) {
-                    /* do nothing */
+                    var id = BrandService.selectLatestBrandId() + 1;
+                    var editedDate = LocalDateTime.now();
+                    var editedBy = (String) session.getAttribute("admin_username");
+                    var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
+                    BrandService.insertIntoBrand(record);
+                    session.setAttribute("submitted_name", null);
+                    session.setAttribute("submitted_image_url", null);
+                    session.setAttribute("submitted_slug", null);
+                    session.setAttribute("add_error", null);
+                    return "redirect:" + "/admin/brand";
                 }
                 else {
                     session.setAttribute("add_error", "Slug already existed");
                     return "redirect:" + "/admin/brand/add";
                 }
-                var id = BrandService.selectLatestBrandId(); id += 1;
-                var editedDate = LocalDateTime.now();
-                var editedBy = (String) session.getAttribute("admin_username");
-                var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
-                BrandService.insertIntoBrand(record);
-                session.setAttribute("submitted_name", null);
-                session.setAttribute("submitted_image_url", null);
-                session.setAttribute("submitted_slug", null);
-                session.setAttribute("add_error", null);
-                return "redirect:" + "/admin/brand";
             }
             catch (SQLException exc) {
                 session.setAttribute("add_error", "Failed to add brand");

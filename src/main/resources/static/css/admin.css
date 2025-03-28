@@ -1,6 +1,6 @@
 
 .bg-accent {
-    background-color: #841618;
+    background-color: #0B5ED7;
 }
 
 .bg-whitesmoke {
@@ -17,4 +17,8 @@
 
 .w-100px {
     width: 100px;
+}
+
+.text-white {
+    color: white;
 }

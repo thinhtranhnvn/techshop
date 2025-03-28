@@ -100,7 +100,15 @@ public class BrandService {
                 return null;
             }
         }
-        catch (ExceptionInvalidBrandId | ExceptionInvalidBrandName | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandSlug | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandEditedBy | SQLException exc) {
+        catch (ExceptionInvalidBrandId
+                | ExceptionInvalidBrandName
+                | ExceptionInvalidBrandImageURL
+                | ExceptionInvalidBrandSlug
+                | ExceptionInvalidBrandEditedDate
+                | ExceptionInvalidBrandEditedBy
+                | SQLException
+                exc
+        ) {
             throw exc;
         }
         finally {
@@ -113,7 +121,15 @@ public class BrandService {
         }
     }
 
-    public static Brand selectBrandById(int id) throws SQLException, ExceptionInvalidBrandId, ExceptionInvalidBrandName, ExceptionInvalidBrandImageURL, ExceptionInvalidBrandSlug, ExceptionInvalidBrandEditedDate, ExceptionInvalidBrandEditedBy  {
+    public static Brand selectBrandById(int id)
+        throws SQLException
+             , ExceptionInvalidBrandId
+             , ExceptionInvalidBrandName
+             , ExceptionInvalidBrandImageURL
+             , ExceptionInvalidBrandSlug
+             , ExceptionInvalidBrandEditedDate
+             , ExceptionInvalidBrandEditedBy
+    {
         try (var connection = Database.getConnection()){
             var sql = "SELECT id, name, image_url, slug, edited_date, edited_by "
                     + "FROM brand "
@@ -135,7 +151,15 @@ public class BrandService {
                 return null;
             }
         }
-        catch (SQLException | ExceptionInvalidBrandId | ExceptionInvalidBrandName | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandSlug | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandEditedBy exc) {
+        catch (SQLException
+                | ExceptionInvalidBrandId
+                | ExceptionInvalidBrandName
+                | ExceptionInvalidBrandImageURL
+                | ExceptionInvalidBrandSlug
+                | ExceptionInvalidBrandEditedDate
+                | ExceptionInvalidBrandEditedBy
+                exc
+        ) {
             throw exc;
         }
         finally {
@@ -148,7 +172,7 @@ public class BrandService {
         }
     }
 
-    public static ArrayList<Brand> selectBrandOrderByEditedDateDescLimitOffset(
+    public static ArrayList<Brand> selectAllBrandOrderByEditedDateDescLimitOffset(
         int limit,
         int offset
     ) throws SQLException
@@ -183,7 +207,15 @@ public class BrandService {
            }
            return brandList;
         }
-        catch (SQLException | ExceptionInvalidBrandId | ExceptionInvalidBrandName | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandSlug | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandEditedBy exc) {
+        catch (SQLException
+                | ExceptionInvalidBrandId
+                | ExceptionInvalidBrandName
+                | ExceptionInvalidBrandImageURL
+                | ExceptionInvalidBrandSlug
+                | ExceptionInvalidBrandEditedDate
+                | ExceptionInvalidBrandEditedBy
+                exc
+        ) {
             throw exc;
         }
         finally {
@@ -309,7 +341,15 @@ public class BrandService {
            }
            return brandList;
         }
-        catch (SQLException | ExceptionInvalidBrandId | ExceptionInvalidBrandName | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandSlug | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandEditedBy exc) {
+        catch (SQLException
+                | ExceptionInvalidBrandId
+                | ExceptionInvalidBrandName
+                | ExceptionInvalidBrandImageURL
+                | ExceptionInvalidBrandSlug
+                | ExceptionInvalidBrandEditedDate
+                | ExceptionInvalidBrandEditedBy
+                exc
+        ) {
             throw exc;
         }
         finally {
@@ -322,7 +362,10 @@ public class BrandService {
         }
     }
     
-    public static void deleteFromBrand(Brand record) throws ExceptionNullBrand, SQLException {
+    public static void deleteFromBrand(Brand record)
+        throws ExceptionNullBrand
+             , SQLException
+    {
         if (record == null) {
             throw new ExceptionNullBrand("The brand pointer is null");
         }
@@ -344,6 +387,57 @@ public class BrandService {
                 catch (SQLException exc) {
                     throw exc;
                 }
+            }
+        }
+    }
+    
+    public static ArrayList<Brand> selectAllBrandOrderByNameAsc()
+        throws SQLException
+             , ExceptionInvalidBrandId
+             , ExceptionInvalidBrandName
+             , ExceptionInvalidBrandImageURL
+             , ExceptionInvalidBrandSlug
+             , ExceptionInvalidBrandEditedDate
+             , ExceptionInvalidBrandEditedBy
+    {
+        try (var connection = Database.getConnection()) {
+            var sql = "SELECT id, name, image_url, slug, edited_date, edited_by "
+                    + "FROM brand "
+                    + "ORDER BY name ASC";
+           var statement = connection.prepareStatement(sql);
+           var result = statement.executeQuery();
+           var brandList = new ArrayList<Brand>();
+           while (result.next()) {
+               var id         = result.getInt("id");
+               var name       = result.getString("name");
+               var imageURL   = result.getString("image_url");
+               var slug       = result.getString("slug");
+               var dateString = result.getString("edited_date");
+               var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+               var editedDate = LocalDateTime.parse(dateString, formatter);
+               var editedBy   = result.getString("edited_by");
+               var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
+               brandList.add(record);
+           }
+           return brandList;
+        }
+        catch (SQLException
+                | ExceptionInvalidBrandId
+                | ExceptionInvalidBrandName
+                | ExceptionInvalidBrandImageURL
+                | ExceptionInvalidBrandSlug
+                | ExceptionInvalidBrandEditedDate
+                | ExceptionInvalidBrandEditedBy
+                exc
+        ) {
+            throw exc;
+        }
+        finally {
+            try {
+                Database.closeConnection();
+            }
+            catch (SQLException exc) {
+                throw exc;
             }
         }
     }

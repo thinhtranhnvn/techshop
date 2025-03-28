@@ -30,18 +30,17 @@ create table brand (
 );
 
 create table product (
-    id                int          not null auto_increment primary key,
-    brand_id          int          not null,
-    name              varchar(128) not null,
-    price             float        not null,
-    short_description mediumtext,
-    description       mediumtext,
-    specification     mediumtext,
-    promotion         mediumtext,
-    discount          float,
-    slug              varchar(128) not null unique,
-    edited_date       datetime     not null,
-    edited_by         varchar(32)  not null
+    id               int          not null auto_increment primary key,
+    brand_id         int          not null,
+    name             varchar(128) not null,
+    price            float        not null,
+    promotion        mediumtext,
+    discount         float,
+    description      mediumtext,
+    specification    mediumtext,
+    slug             varchar(128) not null unique,
+    edited_date      datetime     not null,
+    edited_by        varchar(32)  not null
 );
 
 alter table product
@@ -58,27 +57,6 @@ create table product_image (
 
 alter table product_image
 add constraint fk_product_image_product
-foreign key (product_id) references product(id);
-
---
-
-create table campaign (
-    id          int        not null auto_increment primary key,
-    description mediumtext not null,
-    discount    float      not null
-);
-
-create table campaign_product_detail (
-    campaign_id int not null,
-    product_id  int not null
-);
-
-alter table campaign_product_detail
-add constraint fk_campaign_product_detail_campaign
-foreign key (campaign_id) references campaign(id);
-
-alter table campaign_product_detail
-add constraint fk_campaign_product_detail_product
 foreign key (product_id) references product(id);
 
 --
@@ -128,19 +106,3 @@ foreign key (collection_id) references collection(id);
 alter table collection_product_detail
 add constraint fk_collection_product_detail_product
 foreign key (product_id) references product(id);
-
---
-
-create table related_product (
-    id              INT NOT NULL,
-    main_product_id INT NOT NULL,
-    `order`         INT NOT NULL
-);
-
-alter table related_product
-add constraint fk_related_product_product_main
-foreign key (id) references product(id);
-
-alter table related_product
-add constraint fk_related_product_product_related
-foreign key (main_product_id) references product(id);

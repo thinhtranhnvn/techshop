@@ -27,7 +27,7 @@ public class AdminBrandIndexController {
     })
     public String accept(
         HttpServletRequest request, HttpSession session, Model model,
-        @RequestParam(name="page", required=false, defaultValue="1") String page
+        @RequestParam(name="page", required=false, defaultValue="1") int currentPage
     ) {
         if (session.getAttribute("admin_username") == null) {
             session.setAttribute("return_url", request.getRequestURI());
@@ -38,24 +38,22 @@ public class AdminBrandIndexController {
             try {
                 int brandPerPage = 10;
                 int maxPage = (int) Math.ceil((double) BrandService.selectCountAllBrand() / brandPerPage);
-                int currentPage = Integer.parseInt(page);
                 if (currentPage < 0 || maxPage < currentPage) {
                     model.addAttribute("index_error", "Invalid page number");
                 }
                 else {
-                    var brandList = BrandService.selectBrandOrderByEditedDateDescLimitOffset(brandPerPage, (currentPage - 1) * brandPerPage);
+                    var brandList = BrandService.selectAllBrandOrderByEditedDateDescLimitOffset(brandPerPage, (currentPage - 1) * brandPerPage);
                     model.addAttribute("brand_list", brandList);
                     model.addAttribute("previous_page", (1 < currentPage) ? (currentPage - 1) : null);
                     model.addAttribute("next_page", (currentPage < maxPage) ? (currentPage + 1) : null);
                 }
                 model.addAttribute("delete_error", session.getAttribute("delete_error"));
                 model.addAttribute("index_error", null);
-                return "page/admin/brand/index.html";
             }
-            catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug | NumberFormatException | SQLException exc) {
+            catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug | SQLException exc) {
                 model.addAttribute("index_error", "Failed connecting to database");
-                return "page/admin/brand/index.html";
             }
+            return "page/admin/brand/index.html";
         }
     }
 

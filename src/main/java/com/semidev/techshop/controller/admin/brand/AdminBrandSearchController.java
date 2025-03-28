@@ -7,6 +7,7 @@ import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
 import com.semidev.techshop.exception.ExceptionInvalidBrandName;
 import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
 import com.semidev.techshop.model.service.BrandService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ public class AdminBrandSearchController {
     public String accept(
         HttpServletRequest request, HttpSession session, Model model,
         @RequestParam(name="keywords", required=false, defaultValue="") String keywords,
-        @RequestParam(name="page", required=false, defaultValue="1") String page
+        @RequestParam(name="page", required=false, defaultValue="1") int currentPage
     ) {
         if (session.getAttribute("admin_username") == null) {
             session.setAttribute("return_url", request.getRequestURI());
@@ -36,7 +37,6 @@ public class AdminBrandSearchController {
             try {
                 int brandPerPage = 10;
                 int maxPage = (int) Math.ceil((double) BrandService.selectCountBrandByNameLike(keywords) / brandPerPage);
-                int currentPage = Integer.parseInt(page);
                 if (currentPage < 0 || maxPage < currentPage) {
                     model.addAttribute("search_error", "Invalid page number");
                 }

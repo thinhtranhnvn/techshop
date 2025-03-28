@@ -21,7 +21,7 @@ public class AdminIndexController {
             return "redirect:" + "/admin/login";
         }
         else {
-            model.addAttribute("title", "Admin index | TecHland");
+            model.addAttribute("title", "Admin Index");
             return "page/admin/index.html";
         }
     }

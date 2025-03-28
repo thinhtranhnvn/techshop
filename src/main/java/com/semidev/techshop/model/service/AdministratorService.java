@@ -33,7 +33,12 @@ public class AdministratorService {
                 return null;
             }
         }
-        catch (SQLException | ExceptionInvalidAdministratorId | ExceptionInvalidAdministratorUsername | ExceptionInvalidAdministratorPassword exc) {
+        catch (SQLException
+                | ExceptionInvalidAdministratorId
+                | ExceptionInvalidAdministratorUsername
+                | ExceptionInvalidAdministratorPassword
+                exc
+        ) {
             throw exc;
         }
         finally {

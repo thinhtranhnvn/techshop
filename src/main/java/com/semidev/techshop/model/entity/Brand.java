@@ -114,8 +114,16 @@ public class Brand {
             instance.setEditedBy(editedBy);
             return instance;
         }
-        catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug exc) {
+        catch (ExceptionInvalidBrandEditedBy
+                | ExceptionInvalidBrandEditedDate
+                | ExceptionInvalidBrandId
+                | ExceptionInvalidBrandImageURL
+                | ExceptionInvalidBrandName
+                | ExceptionInvalidBrandSlug
+                exc
+        ) {
             throw exc;
         }
     }
+    
 }

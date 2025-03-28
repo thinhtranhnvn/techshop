@@ -23,7 +23,7 @@ public class AdminLoginController {
                 return "redirect:" + "/admin";
         }
         else {
-            model.addAttribute("title", "Admin Login | TecHland");
+            model.addAttribute("title", "Admin Login");
             model.addAttribute("submitted_username", session.getAttribute("submitted_username"));
             model.addAttribute("submitted_password", session.getAttribute("submitted_password"));
             model.addAttribute("login_error", session.getAttribute("login_error"));
