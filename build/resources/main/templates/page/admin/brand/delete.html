@@ -14,22 +14,24 @@
                 <tbody>
                     <tr>
                         <th scope="row"></th>
-                        <td><img class="w-100px" th:src="@{|${brand.getImageURL()}|}" /></td>
+                        <td><img class="w-100px" th:src="${brand.getImageURL()}" /></td>
                     </tr>
                     <tr>
                         <th scope="row"> Id </th>
-                        <td th:text="@{|${brand.getId()}|}" />
+                        <td th:text="${brand.getId()}" />
                     </tr>
                     <tr>
                         <th scope="row"> Name </th>
-                        <td th:text="@{|${brand.getName()}|}" />
+                        <td th:text="${brand.getName()}" />
                     </tr>
                     <tr>
                         <th scope="row"> Slug </th>
-                        <td th:text="@{|${brand.getSlug()}|}" />
+                        <td th:text="${brand.getSlug()}" />
                     </tr>
                 </tbody>
             </table>
+            
+            <a class="btn btn-primary mt-3" href="/admin/brand"> Back to index </a>
         </div>
     </main>
 

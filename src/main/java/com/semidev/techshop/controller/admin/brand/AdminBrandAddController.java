@@ -13,16 +13,20 @@ public class AdminBrandAddController {
 
     @GetMapping("/admin/brand/add")
     public String accept(HttpServletRequest request, HttpSession session, Model model) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {
             model.addAttribute("title", "Add Brand");
-            model.addAttribute("submitted_name", session.getAttribute("submitted_name"));
-            model.addAttribute("submitted_image_url", session.getAttribute("submitted_image_url"));
-            model.addAttribute("submitted_slug", session.getAttribute("submitted_slug"));
-            model.addAttribute("add_error", session.getAttribute("add_error"));
+            model.addAttribute("submittedName", session.getAttribute("submittedName"));
+            session.setAttribute("submittedName", null);
+            model.addAttribute("submittedImageURL", session.getAttribute("submittedImageURL"));
+            session.setAttribute("submittedImageURL", null);
+            model.addAttribute("submittedSlug", session.getAttribute("submittedSlug"));
+            session.setAttribute("submittedSlug", null);
+            model.addAttribute("addError", session.getAttribute("addError"));
+            session.setAttribute("addError", null);
             return "page/admin/brand/add.html";
         }
     }

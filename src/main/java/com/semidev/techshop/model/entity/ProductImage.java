@@ -54,20 +54,11 @@ public class ProductImage {
            , ExceptionInvalidProductId
            , ExceptionInvalidProductImageId
     {
-        try {
-            var instance = new ProductImage();
-            instance.setId(id);
-            instance.setProductId(productId);
-            instance.setImageURL(imageURL);
-            return instance;
-        }
-        catch (ExceptionInvalidImageURL
-                | ExceptionInvalidProductId
-                | ExceptionInvalidProductImageId
-                exc
-        ) {
-            throw exc;
-        }
+        var instance = new ProductImage();
+        instance.setId(id);
+        instance.setProductId(productId);
+        instance.setImageURL(imageURL);
+        return instance;
     }
         
 }

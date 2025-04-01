@@ -16,8 +16,8 @@ public class AdminIndexController {
         "/admin/"
     })
     public String accept(HttpServletRequest request, HttpSession session, Model model) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {

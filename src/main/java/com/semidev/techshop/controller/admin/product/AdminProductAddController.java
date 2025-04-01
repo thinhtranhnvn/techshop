@@ -22,8 +22,8 @@ public class AdminProductAddController {
 
     @GetMapping("/admin/product/add")
     public String accept(HttpServletRequest request, HttpSession session, Model model) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {
@@ -31,7 +31,8 @@ public class AdminProductAddController {
                 var brandList = BrandService.selectAllBrandOrderByNameAsc();
                 model.addAttribute("title", "Add Product");
                 model.addAttribute("brandList", brandList);
-                model.addAttribute("add_error", session.getAttribute("add_error"));
+                model.addAttribute("addError", session.getAttribute("addError"));
+                session.setAttribute("addError", null);
                 return "page/admin/product/add.html";
             }
             catch (ExceptionInvalidBrandEditedBy
@@ -43,7 +44,7 @@ public class AdminProductAddController {
                     | SQLException
                     exc
             ) {
-                model.addAttribute("add_error", "Failed database connection");
+                model.addAttribute("addError", "Failed database connection");
                 return "page/admin/product/add.html";
             }
         }

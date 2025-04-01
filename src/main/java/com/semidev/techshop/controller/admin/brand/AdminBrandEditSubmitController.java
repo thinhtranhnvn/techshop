@@ -6,7 +6,6 @@ import com.semidev.techshop.exception.ExceptionInvalidBrandId;
 import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
 import com.semidev.techshop.exception.ExceptionInvalidBrandName;
 import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
-
 import com.semidev.techshop.model.entity.Brand;
 import com.semidev.techshop.model.service.BrandService;
 
@@ -33,60 +32,61 @@ public class AdminBrandEditSubmitController {
         @RequestParam(name="image-url", required=true) String imageURL,
         @RequestParam(name="slug", required=true) String slug
     ) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {
-            session.setAttribute("submitted_id", id);
-            session.setAttribute("submitted_name", name);
-            session.setAttribute("submitted_image_url", imageURL);
-            session.setAttribute("submitted_slug", slug);
             try {
+                session.setAttribute("submittedId", id);
+                session.setAttribute("submittedName", name);
+                session.setAttribute("submittedImageURL", imageURL);
+                session.setAttribute("submittedSlug", slug);
                 var matchedSlugRecord = BrandService.selectBrandBySlug(slug);
                 if (matchedSlugRecord == null || matchedSlugRecord.getId() == id) {
                     var editedDate = LocalDateTime.now();
-                    var editedBy = (String) session.getAttribute("admin_username");
+                    var editedBy = (String) session.getAttribute("adminUsername");
                     var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
                     BrandService.updateBrand(record);
-                    session.setAttribute("submitted_id", null);
-                    session.setAttribute("submitted_name", null);
-                    session.setAttribute("submitted_image_url", null);
-                    session.setAttribute("submitted_slug", null);
-                    session.setAttribute("edit_error", null);
+                    session.setAttribute("editInfo", "Successfully updated brand");
+                    session.setAttribute("submittedId", null);
+                    session.setAttribute("submittedName", null);
+                    session.setAttribute("submittedImageURL", null);
+                    session.setAttribute("submittedSlug", null);
+                    session.setAttribute("editError", null);
                     return "redirect:" + "/admin/brand";
                 }
                 else {
-                    session.setAttribute("edit_error", "Slug already existed");
+                    session.setAttribute("editError", "Slug already existed");
                     return "redirect:" + "/admin/brand/edit?id=" + id;
                 }
             }
             catch (SQLException exc) {
-                session.setAttribute("edit_error", "Failed to update brand");
+                session.setAttribute("editError", "Failed to update brand");
                 return "redirect:" + "/admin/brand/edit?id=" + id;
             }
             catch (ExceptionInvalidBrandId exc) {
-                session.setAttribute("edit_error", "Invalid brand id");
+                session.setAttribute("editError", "Invalid brand id");
                 return "redirect:" + "/admin/brand/edit?id=" + id;
             }
             catch (ExceptionInvalidBrandName exc) {
-                session.setAttribute("edit_error", "Invalid brand name");
+                session.setAttribute("editError", "Invalid brand name");
                 return "redirect:" + "/admin/brand/edit?id=" + id;
             }
             catch (ExceptionInvalidBrandImageURL exc) {
-                session.setAttribute("edit_error", "Invalid image URL");
+                session.setAttribute("editError", "Invalid image URL");
                 return "redirect:" + "/admin/brand/edit?id=" + id;
             }
             catch (ExceptionInvalidBrandSlug exc) {
-                session.setAttribute("edit_error", "Invalid brand slug");
+                session.setAttribute("editError", "Invalid brand slug");
                 return "redirect:" + "/admin/brand/edit?id=" + id;
             }
             catch (ExceptionInvalidBrandEditedDate exc) {
-                session.setAttribute("edit_error", "Invalid edited date");
+                session.setAttribute("editError", "Invalid edited date");
                 return "redirect:" + "/admin/brand/edit?id=" + id;
             }
             catch (ExceptionInvalidBrandEditedBy exc) {
-                session.setAttribute("edit_error", "Invalid editor");
+                session.setAttribute("editError", "Invalid editor");
                 return "redirect:" + "/admin/brand/edit?id=" + id;
             }
         }

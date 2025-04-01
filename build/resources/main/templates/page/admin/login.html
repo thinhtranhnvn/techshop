@@ -8,15 +8,15 @@
         <div class="container mw-360px">
             <h1 class="mb-5"> Admin Login </h1>
 
-            <div class="mb-3 text-danger" th:if="${login_error != null}" th:text="|${login_error}|" />
+            <div class="mb-3 text-danger" th:if="${loginError != null}" th:text="|${loginError}|" />
 
             <div class="mb-3">
                 <label for="username" class="form-label"> Username </label>
-                <input type="text" class="form-control" name="username" pattern="\w{1,32}" th:value="${submitted_username != null} ? ${submitted_username} : ''" id="username" autofocus required />
+                <input type="text" class="form-control" pattern="\w{1,32}" name="username" id="username" th:value="${submittedUsername != null} ? ${submittedUsername} : ''" autofocus required />
             </div>
             <div class="mb-4">
                 <label for="password" class="form-label"> Password </label>
-                <input type="password" class="form-control" name="password" pattern="[\w!@#$%^&*]{1,32}" th:value="${submitted_password != null} ? ${submitted_password} : ''" id="password" required />
+                <input type="password" class="form-control" pattern="[\w!@#$%^&*]{1,32}" name="password" id="password" th:value="${submittedPassword != null} ? ${submittedPassword} : ''" required />
             </div>
 
             <button type="submit" class="btn btn-primary" name="submit" value="submit"> Log in </button>

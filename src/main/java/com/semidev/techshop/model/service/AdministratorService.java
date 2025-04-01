@@ -41,14 +41,6 @@ public class AdministratorService {
         ) {
             throw exc;
         }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
-        }
     }
 
 }

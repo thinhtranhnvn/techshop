@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="mb-2 text-danger" th:if="${search_error != null}" th:text="|${search_error}|" />
+            <div class="mb-2 text-danger" th:if="${searchError != null}" th:text="${searchError}" />
 
             <table class="table">
                 <thead>
@@ -40,22 +40,22 @@
                 </thead>
                 <tbody>
                     <tr th:each="brand: ${brand_list}">
-                        <td th:text="|${brand.getId()}|" />
-                        <td th:text="|${brand.getName()}|" />
+                        <td th:text="${brand.getId()}" />
+                        <td th:text="${brand.getName()}" />
                         <td>
-                            <img class="w-100px" th:src="@{${brand.getImageURL()}}" />
+                            <img class="w-100px" th:src="${brand.getImageURL()}" />
                         </td>
-                        <td th:text="|${brand.getSlug()}|" />
-                        <td th:text="|${brand.getEditedDate().toString().replace('T', ' ')}|" />
-                        <td th:text="|${brand.getEditedBy()}|" />
+                        <td th:text="${brand.getSlug()}" />
+                        <td th:text="${brand.getEditedDate().toString().replace('T', ' ')}" />
+                        <td th:text="${brand.getEditedBy()}" />
                         <td>
                             <div class="mb-1">
-                                <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{/admin/brand/edit?id={id}(id=${brand.getId()})}">
+                                <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/admin/brand/edit?id=${brand.getId()}|}">
                                     <i class="fas fa-edit me-1"></i> Edit
                                 </a>
                             </div>
                             <div>
-                                <a class="btn btn-danger w-100px btn-delete-brand" th:href="@{/admin/brand/delete?id={id}(id=${brand.getId()})}">
+                                <a class="btn btn-danger w-100px btn-delete-brand" th:href="@{|/admin/brand/delete?id=${brand.getId()}|}">
                                     <i class="fas fa-trash-alt me-1"></i> Delete
                                 </a>
                             </div>
@@ -66,12 +66,12 @@
 
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-outline-secondary" th:if="${previous_page != null}" th:href="@{|/admin/brand/search?keywords=${keywords}&page=${previous_page}|}">
+                    <a class="btn btn-outline-secondary" th:if="${previousPage != null}" th:href="@{|/admin/brand/search?keywords=${keywords}&page=${previousPage}|}">
                         <i class="fas fa-arrow-left me-1"></i> Previous
                     </a>
                 </div>
                 <div class="col text-end">
-                    <a class="btn btn-outline-secondary" th:if="${next_page != null}" th:href="@{|/admin/brand/search?keywords=${keywords}&page=${next_page}|}">
+                    <a class="btn btn-outline-secondary" th:if="${nextPage != null}" th:href="@{|/admin/brand/search?keywords=${keywords}&page=${nextPage}|}">
                         Next <i class="fas fa-arrow-right ms-1"></i>
                     </a>
                 </div>

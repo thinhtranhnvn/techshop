@@ -104,26 +104,14 @@ public class Brand {
            , ExceptionInvalidBrandEditedDate
            , ExceptionInvalidBrandEditedBy
     {
-        try {
-            var instance = new Brand();
-            instance.setId(id);
-            instance.setName(name);
-            instance.setImageURL(imageURL);
-            instance.setSlug(slug);
-            instance.setEditedDate(editedDate);
-            instance.setEditedBy(editedBy);
-            return instance;
-        }
-        catch (ExceptionInvalidBrandEditedBy
-                | ExceptionInvalidBrandEditedDate
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidBrandImageURL
-                | ExceptionInvalidBrandName
-                | ExceptionInvalidBrandSlug
-                exc
-        ) {
-            throw exc;
-        }
+        var instance = new Brand();
+        instance.setId(id);
+        instance.setName(name);
+        instance.setImageURL(imageURL);
+        instance.setSlug(slug);
+        instance.setEditedDate(editedDate);
+        instance.setEditedBy(editedBy);
+        return instance;
     }
     
 }

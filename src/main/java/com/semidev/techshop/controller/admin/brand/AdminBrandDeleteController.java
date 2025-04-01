@@ -29,27 +29,26 @@ public class AdminBrandDeleteController {
         HttpServletRequest request, HttpSession session, Model model,
         @RequestParam(name="id", required=true) int id
     ) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {
             try {
                 int relatedProductCounter = BrandJoinProductService.selectCountBrandJoinProductByBrandId(id);
                 if (relatedProductCounter != 0) {
-                    session.setAttribute("delete_error", "There are some related products");
+                    session.setAttribute("deleteError", "There are some related products");
                     return "redirect:" + "/admin/brand";
                 }
                 else {
                     var record = BrandService.selectBrandById(id);
                     BrandService.deleteFromBrand(record);
-                    session.setAttribute("delete_error", null);
                     model.addAttribute("brand", record);
                     return "page/admin/brand/delete.html";
                 }
             }
-            catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug | ExceptionNullBrand | SQLException exc) {
-                session.setAttribute("delete_error", "Failed deleting brand");
+            catch (Exception exc) {
+                session.setAttribute("deleteError", "Failed deleting brand");
                 return "redirect:" + "/admin/brand";
             }
         }

@@ -29,31 +29,37 @@ public class AdminBrandIndexController {
         HttpServletRequest request, HttpSession session, Model model,
         @RequestParam(name="page", required=false, defaultValue="1") int currentPage
     ) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {
-            model.addAttribute("title", "Brand index");
             try {
+                model.addAttribute("title", "Brand index");
                 int brandPerPage = 10;
-                int maxPage = (int) Math.ceil((double) BrandService.selectCountAllBrand() / brandPerPage);
+                var maxPage = (int) Math.ceil((double) BrandService.selectCountAllBrand() / brandPerPage);
+                model.addAttribute("previousPage", (1 < currentPage) ? (currentPage - 1) : null);
+                model.addAttribute("nextPage", (currentPage < maxPage) ? (currentPage + 1) : null);
                 if (currentPage < 0 || maxPage < currentPage) {
-                    model.addAttribute("index_error", "Invalid page number");
+                    model.addAttribute("indexError", "Invalid page number");
                 }
                 else {
                     var brandList = BrandService.selectAllBrandOrderByEditedDateDescLimitOffset(brandPerPage, (currentPage - 1) * brandPerPage);
-                    model.addAttribute("brand_list", brandList);
-                    model.addAttribute("previous_page", (1 < currentPage) ? (currentPage - 1) : null);
-                    model.addAttribute("next_page", (currentPage < maxPage) ? (currentPage + 1) : null);
+                    model.addAttribute("brandList", brandList);
                 }
-                model.addAttribute("delete_error", session.getAttribute("delete_error"));
-                model.addAttribute("index_error", null);
+                model.addAttribute("addInfo", session.getAttribute("addInfo"));
+                session.setAttribute("addInfo", null);
+                model.addAttribute("editInfo", session.getAttribute("editInfo"));
+                session.setAttribute("editInfo", null);
+                model.addAttribute("deleteError", session.getAttribute("deleteError"));
+                session.setAttribute("deleteError", null);
+                model.addAttribute("indexError", null);
+                return "page/admin/brand/index.html";
             }
-            catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug | SQLException exc) {
-                model.addAttribute("index_error", "Failed connecting to database");
+            catch (Exception exc) {
+                model.addAttribute("indexError", "Failed connecting to database");
+                return "page/admin/brand/index.html";
             }
-            return "page/admin/brand/index.html";
         }
     }
 

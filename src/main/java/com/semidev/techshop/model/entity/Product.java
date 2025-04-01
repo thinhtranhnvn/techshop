@@ -185,36 +185,19 @@ public class Product {
            , ExceptionInvalidProductDiscount
            , ExceptionNullProductPromotion
     {
-        try {
-            var instance = new Product();
-            instance.setId(id);
-            instance.setBrandId(brandId);
-            instance.setName(name);
-            instance.setPrice(price);
-            instance.setDiscount(discount);
-            instance.setPromotion(promotion);
-            instance.setDescription(description);
-            instance.setSpecification(specification);
-            instance.setSlug(slug);
-            instance.setEditedDate(editedDate);
-            instance.setEditedBy(editedBy);
-            return instance;
-        }
-        catch (ExceptionInvalidBrandId
-                | ExceptionInvalidProductDescription
-                | ExceptionInvalidProductEditedBy
-                | ExceptionInvalidProductEditedDate
-                | ExceptionInvalidProductId
-                | ExceptionInvalidProductName
-                | ExceptionInvalidProductPrice
-                | ExceptionInvalidProductSlug
-                | ExceptionInvalidProductSpecification
-                | ExceptionInvalidProductDiscount
-                | ExceptionNullProductPromotion
-                exc
-        ) {
-            throw exc;
-        }
+        var instance = new Product();
+        instance.setId(id);
+        instance.setBrandId(brandId);
+        instance.setName(name);
+        instance.setPrice(price);
+        instance.setDiscount(discount);
+        instance.setPromotion(promotion);
+        instance.setDescription(description);
+        instance.setSpecification(specification);
+        instance.setSlug(slug);
+        instance.setEditedDate(editedDate);
+        instance.setEditedBy(editedBy);
+        return instance;
     }
         
 }

@@ -54,20 +54,11 @@ public class Administrator {
            , ExceptionInvalidAdministratorUsername
            , ExceptionInvalidAdministratorPassword
     {
-        try {
-            var instance = new Administrator();
-            instance.setId(id);
-            instance.setUsername(username);
-            instance.setPassword(password);
-            return instance;
-        }
-        catch (ExceptionInvalidAdministratorId
-                | ExceptionInvalidAdministratorUsername
-                | ExceptionInvalidAdministratorPassword
-                exc
-        ) {
-            throw exc;
-        }
+        var instance = new Administrator();
+        instance.setId(id);
+        instance.setUsername(username);
+        instance.setPassword(password);
+        return instance;
     }
     
 }

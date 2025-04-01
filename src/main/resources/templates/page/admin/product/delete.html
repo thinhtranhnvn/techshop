@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Deleted Product </h1>
+
+            <table class="table mw-810px">
+                <tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td><img class="w-100px" th:src="${productImage.getImageURL()}" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Id </th>
+                        <td th:text="${product.getId()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Brand </th>
+                        <td th:text="${brand.getName()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Name </th>
+                        <td th:text="${product.getName()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Price </th>
+                        <td th:text="${product.getPrice()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Slug </th>
+                        <td th:text="${product.getSlug()}" />
+                    </tr>
+                </tbody>
+            </table>
+            
+            <a class="btn btn-primary mt-3" href="/admin/product"> Back to index </a>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

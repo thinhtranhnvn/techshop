@@ -23,9 +23,11 @@
                     </form>
                 </div>
             </div>
-
-            <div class="mb-2 text-danger" th:if="${index_error != null}" th:text="|${index_error}|" />
-            <div class="mb-2 text-danger" th:if="${delete_error != null}" th:text="|${delete_error}|" />
+            
+            <div class="mb-2 text-success" th:if="${addInfo != null}" th:text="${addInfo}" />
+            <div class="mb-2 text-danger" th:if="${indexError != null}" th:text="${indexError}" />
+            <div class="mb-2 text-success" th:if="${editInfo != null}" th:text="${editInfo}" />
+            <div class="mb-2 text-danger" th:if="${deleteError != null}" th:text="${deleteError}" />
 
             <table class="table">
                 <thead>
@@ -40,15 +42,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="brand: ${brand_list}">
-                        <td th:text="|${brand.getId()}|" />
-                        <td th:text="|${brand.getName()}|" />
+                    <tr th:each="brand: ${brandList}">
+                        <td th:text="${brand.getId()}" />
+                        <td th:text="${brand.getName()}" />
                         <td>
-                            <img class="w-100px" th:src="@{${brand.getImageURL()}}" />
+                            <img class="w-100px" th:src="${brand.getImageURL()}" />
                         </td>
-                        <td th:text="|${brand.getSlug()}|" />
-                        <td th:text="|${brand.getEditedDate().toString().replace('T', ' ')}|" />
-                        <td th:text="|${brand.getEditedBy()}|" />
+                        <td th:text="${brand.getSlug()}" />
+                        <td th:text="${brand.getEditedDate().toString().replace('T', ' ')}" />
+                        <td th:text="${brand.getEditedBy()}" />
                         <td>
                             <div class="mb-1">
                                 <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/admin/brand/edit?id=${brand.getId()}|}">
@@ -67,12 +69,12 @@
 
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-outline-secondary" th:if="${previous_page != null}" th:href="@{|/admin/brand?page=${previous_page}|}">
+                    <a class="btn btn-outline-secondary" th:if="${previousPage != null}" th:href="@{|/admin/brand?page=${previousPage}|}">
                         <i class="fas fa-arrow-left me-1"></i> Previous
                     </a>
                 </div>
                 <div class="col text-end">
-                    <a class="btn btn-outline-secondary" th:if="${next_page != null}" th:href="@{|/admin/brand?page=${next_page}|}">
+                    <a class="btn btn-outline-secondary" th:if="${nextPage != null}" th:href="@{|/admin/brand?page=${nextPage}|}">
                         Next <i class="fas fa-arrow-right ms-1"></i>
                     </a>
                 </div>

@@ -46,26 +46,26 @@ public class AdminProductAddSubmitController {
         @RequestParam(name="specification", required=false, defaultValue="") String specification,
         @RequestParam(name="slug", required=true) String slug
     ) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {
-            session.setAttribute("submitted_brand_id", brandId);
-            session.setAttribute("submitted_name", name);
-            session.setAttribute("submitted_image_url", imageURLList);
-            session.setAttribute("submitted_price", price);
-            session.setAttribute("submitted_discount", discount);
-            session.setAttribute("submitted_promotion", promotion);
-            session.setAttribute("submitted_description", description);
-            session.setAttribute("submitted_specification", specification);
-            session.setAttribute("submitted_slug", slug);
             try {
+                session.setAttribute("submittedBrandId", brandId);
+                session.setAttribute("submittedName", name);
+                session.setAttribute("submittedImageURL", imageURLList);
+                session.setAttribute("submittedPrice", price);
+                session.setAttribute("submittedDiscount", discount);
+                session.setAttribute("submittedPromotion", promotion);
+                session.setAttribute("submittedDescription", description);
+                session.setAttribute("submittedSpecification", specification);
+                session.setAttribute("submittedSlug", slug);
                 var matchedSlugProduct = ProductService.selectProductBySlug(slug);
                 if (matchedSlugProduct == null) {
                     var productId = ProductService.selectLatestProductId() + 1;
                     var editedDate = LocalDateTime.now();
-                    var editedBy = (String) session.getAttribute("admin_username");
+                    var editedBy = (String) session.getAttribute("adminUsername");
                     var product = Product.createInstance(productId, brandId, name, price, discount, promotion, description, specification, slug, editedDate, editedBy);
                     ProductService.insertIntoProduct(product);
                     for (var imageURL : imageURLList) {
@@ -78,77 +78,77 @@ public class AdminProductAddSubmitController {
                             ProductImageService.insertIntoProductImage(productImage);
                         }
                     }
-                    session.setAttribute("submitted_brand_id", null);
-                    session.setAttribute("submitted_name", null);
-                    session.setAttribute("submitted_image_url", null);
-                    session.setAttribute("submitted_price", null);
-                    session.setAttribute("submitted_discount", null);
-                    session.setAttribute("submitted_promotion", null);
-                    session.setAttribute("submitted_description", null);
-                    session.setAttribute("submitted_specification", null);
-                    session.setAttribute("submitted_slug", null);
-                    session.setAttribute("add_error", null);
+                    session.setAttribute("submittedBrandId", null);
+                    session.setAttribute("submittedName", null);
+                    session.setAttribute("submittedImageURL", null);
+                    session.setAttribute("submittedPrice", null);
+                    session.setAttribute("submittedDiscount", null);
+                    session.setAttribute("submittedPromotion", null);
+                    session.setAttribute("submittedDescription", null);
+                    session.setAttribute("submittedSpecification", null);
+                    session.setAttribute("submittedSlug", null);
+                    session.setAttribute("addError", null);
                     return "redirect:" + "/admin/product";
                 }
                 else {
-                    session.setAttribute("add_error", "Slug already existed");
+                    session.setAttribute("addError", "Slug already existed");
                     return "redirect:" + "/admin/product/add";
                 }
             }
             catch (ExceptionInvalidBrandId exc) {
-                session.setAttribute("add_error", "Invalid brand id");
+                session.setAttribute("addError", "Invalid brand id");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidImageURL exc) {
-                session.setAttribute("add_error", "Invalid image URL");
+                session.setAttribute("addError", "Invalid image URL");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductDescription exc) {
-                session.setAttribute("add_error", "Invalid product description");
+                session.setAttribute("addError", "Invalid product description");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductDiscount exc) {
-                session.setAttribute("add_error", "Invalid product discount");
+                session.setAttribute("addError", "Invalid product discount");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductEditedBy exc) {
-                session.setAttribute("add_error", "Invalid product edited-by");
+                session.setAttribute("addError", "Invalid product edited-by");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductEditedDate exc) {
-                session.setAttribute("add_error", "Invalid product edited-date");
+                session.setAttribute("addError", "Invalid product edited-date");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductId exc) {
-                session.setAttribute("add_error", "Invalid product id");
+                session.setAttribute("addError", "Invalid product id");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductImageId exc) {
-                session.setAttribute("add_error", "Invalid product image id");
+                session.setAttribute("addError", "Invalid product image id");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductName exc) {
-                session.setAttribute("add_error", "Invalid product name");
+                session.setAttribute("addError", "Invalid product name");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductPrice exc) {
-                session.setAttribute("add_error", "Invalid product price");
+                session.setAttribute("addError", "Invalid product price");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductSlug exc) {
-                session.setAttribute("add_error", "Invalid product slug");
+                session.setAttribute("addError", "Invalid product slug");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionInvalidProductSpecification exc) {
-                session.setAttribute("add_error", "Invalid product specification");
+                session.setAttribute("addError", "Invalid product specification");
                 return "redirect:" + "/admin/product/add";
             }
             catch (ExceptionNullProductPromotion exc) {
-                session.setAttribute("add_error", "Product promotion cannot be null");
+                session.setAttribute("addError", "Product promotion cannot be null");
                 return "redirect:" + "/admin/product/add";
             }
             catch (SQLException exc) {
-                session.setAttribute("add_error", "Failed connecting database");
+                session.setAttribute("addError", "Failed connecting database");
                 return "redirect:" + "/admin/product/add";
             }
         }

@@ -27,29 +27,40 @@ public class AdminBrandEditController {
         HttpServletRequest request, HttpSession session, Model model,
         @RequestParam(name="id", required=true) int id
     ) {
-        if (session.getAttribute("admin_username") == null) {
-            session.setAttribute("return_url", request.getRequestURI());
+        if (session.getAttribute("adminUsername") == null) {
+            session.setAttribute("returnURL", request.getRequestURI());
             return "redirect:" + "/admin/login";
         }
         else {
             model.addAttribute("title", "Edit Brand");
-            if (session.getAttribute("submitted_name") == null) {
-                Brand brand = null;
+            if (session.getAttribute("submittedName") == null) {
                 try {
-                    brand = BrandService.selectBrandById(id);
+                    var brand = BrandService.selectBrandById(id);
+                    model.addAttribute("brand", brand);
                 }
-                catch (ExceptionInvalidBrandEditedBy | ExceptionInvalidBrandEditedDate | ExceptionInvalidBrandId | ExceptionInvalidBrandImageURL | ExceptionInvalidBrandName | ExceptionInvalidBrandSlug | SQLException exc) {
-                    model.addAttribute("edit_error", "Failed database connection");
+                catch (ExceptionInvalidBrandEditedBy
+                        | ExceptionInvalidBrandEditedDate
+                        | ExceptionInvalidBrandId
+                        | ExceptionInvalidBrandImageURL
+                        | ExceptionInvalidBrandName
+                        | ExceptionInvalidBrandSlug
+                        | SQLException
+                        exc
+                ) {
+                    model.addAttribute("editError", "Failed database connection");
                 }
-                model.addAttribute("brand", brand);
             }
             else {
-                model.addAttribute("brand", null);
-                model.addAttribute("submitted_id", session.getAttribute("submitted_id"));
-                model.addAttribute("submitted_name", session.getAttribute("submitted_name"));
-                model.addAttribute("submitted_image_url", session.getAttribute("submitted_image_url"));
-                model.addAttribute("submitted_slug", session.getAttribute("submitted_slug"));
-                model.addAttribute("edit_error", session.getAttribute("edit_error"));
+                model.addAttribute("editError", session.getAttribute("editError"));
+                session.setAttribute("editError", null);
+                model.addAttribute("submittedId", session.getAttribute("submittedId"));
+                session.setAttribute("submittedId", null);
+                model.addAttribute("submittedName", session.getAttribute("submittedName"));
+                session.setAttribute("submittedName", null);
+                model.addAttribute("submittedImageURL", session.getAttribute("submittedImageURL"));
+                session.setAttribute("submittedImageURL", null);
+                model.addAttribute("submittedSlug", session.getAttribute("submittedSlug"));
+                session.setAttribute("submittedSlug", null);
             }
             return "page/admin/brand/edit.html";
         }

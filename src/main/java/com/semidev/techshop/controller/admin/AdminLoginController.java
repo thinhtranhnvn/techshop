@@ -13,20 +13,23 @@ public class AdminLoginController {
 
     @GetMapping("/admin/login")
     public String accept(HttpServletRequest request, HttpSession session, Model model) {
-        if (session.getAttribute("admin_username") != null) {
-            session.setAttribute("submitted_username", null);
-            session.setAttribute("submitted_password", null);
-            session.setAttribute("login_error", null);
-            if (session.getAttribute("return_url") != null)
-                return "redirect:" + session.getAttribute("return_url");
+        if (session.getAttribute("adminUsername") != null) {
+            session.setAttribute("submittedUsername", null);
+            session.setAttribute("submittedPassword", null);
+            session.setAttribute("loginError", null);
+            if (session.getAttribute("returnURL") != null)
+                return "redirect:" + session.getAttribute("returnURL");
             else
                 return "redirect:" + "/admin";
         }
         else {
             model.addAttribute("title", "Admin Login");
-            model.addAttribute("submitted_username", session.getAttribute("submitted_username"));
-            model.addAttribute("submitted_password", session.getAttribute("submitted_password"));
-            model.addAttribute("login_error", session.getAttribute("login_error"));
+            model.addAttribute("submittedUsername", session.getAttribute("submittedUsername"));
+            session.setAttribute("submittedUsername", null);
+            model.addAttribute("submittedPassword", session.getAttribute("submittedPassword"));
+            session.setAttribute("submittedPassword", null);
+            model.addAttribute("loginError", session.getAttribute("loginError"));
+            session.setAttribute("loginError", null);
             return "page/admin/login.html";
         }
     }

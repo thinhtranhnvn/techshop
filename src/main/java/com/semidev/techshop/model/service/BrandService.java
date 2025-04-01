@@ -8,8 +8,8 @@ import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
 import com.semidev.techshop.exception.ExceptionInvalidBrandName;
 import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
 import com.semidev.techshop.model.entity.Brand;
-import java.sql.SQLException;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -36,14 +36,6 @@ public class BrandService {
         catch (SQLException exc) {
             throw exc;
         }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
-        }
     }
 
     public static int selectLatestBrandId() throws SQLException {
@@ -59,14 +51,6 @@ public class BrandService {
         }
         catch (SQLException exc) {
             throw exc;
-        }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
         }
     }
 
@@ -111,14 +95,6 @@ public class BrandService {
         ) {
             throw exc;
         }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
-        }
     }
 
     public static Brand selectBrandById(int id)
@@ -161,14 +137,6 @@ public class BrandService {
                 exc
         ) {
             throw exc;
-        }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
         }
     }
 
@@ -218,14 +186,6 @@ public class BrandService {
         ) {
             throw exc;
         }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
-        }
     }
 
     public static int selectCountAllBrand() throws SQLException {
@@ -233,19 +193,13 @@ public class BrandService {
             var sql = "SELECT count(*) AS counter FROM brand";
             var statement = connection.prepareStatement(sql);
             var result = statement.executeQuery();
-            if (result.next()) return result.getInt("counter");
-            else return 0;
+            if (result.next())
+                return result.getInt("counter");
+            else
+                return 0;
         }
         catch (SQLException exc) {
             throw exc;
-        }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
         }
     }
 
@@ -271,14 +225,6 @@ public class BrandService {
         catch (SQLException exc) {
             throw exc;
         }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
-        }
     }
     
     public static int selectCountBrandByNameLike(String keywords) throws SQLException {
@@ -288,19 +234,13 @@ public class BrandService {
             sql = String.format(sql, "%"+keywords+"%");
             var statement = connection.prepareStatement(sql);
             var result = statement.executeQuery();
-            if (result.next()) return result.getInt("counter");
-            else return 0;
+            if (result.next())
+                return result.getInt("counter");
+            else
+                return 0;
         }
         catch (SQLException exc) {
             throw exc;
-        }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
         }
     }
     
@@ -352,14 +292,6 @@ public class BrandService {
         ) {
             throw exc;
         }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
-        }
     }
     
     public static void deleteFromBrand(Brand record)
@@ -379,14 +311,6 @@ public class BrandService {
             }
             catch (SQLException exc) {
                 throw exc;
-            }
-            finally {
-                try {
-                    Database.closeConnection();
-                }
-                catch (SQLException exc) {
-                    throw exc;
-                }
             }
         }
     }
@@ -431,14 +355,6 @@ public class BrandService {
                 exc
         ) {
             throw exc;
-        }
-        finally {
-            try {
-                Database.closeConnection();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
         }
     }
 

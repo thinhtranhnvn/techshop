@@ -27,10 +27,10 @@ public class AdminLoginSubmitController {
         try {
             var admin = AdministratorService.selectAdministratorByLoginInfo(username, password);
             if (admin != null) {
-                session.setAttribute("admin_username", admin.getUsername());
-                if (session.getAttribute("return_url") != null) {
-                    var returnUrl = (String) session.getAttribute("return_url");
-                    session.setAttribute("return_url", null);
+                session.setAttribute("adminUsername", admin.getUsername());
+                if (session.getAttribute("returnURL") != null) {
+                    var returnUrl = (String) session.getAttribute("returnURL");
+                    session.setAttribute("returnURL", null);
                     return "redirect:" + returnUrl;
                 }
                 else {
@@ -38,10 +38,10 @@ public class AdminLoginSubmitController {
                 }
             }
             else {
-                session.setAttribute("submitted_username", username);
-                session.setAttribute("submitted_password", password);
-                session.setAttribute("login_error", "Invalid login info");
-                return "redirect:" + session.getAttribute("return_url");
+                session.setAttribute("submittedUsername", username);
+                session.setAttribute("submittedPassword", password);
+                session.setAttribute("loginError", "Invalid login info");
+                return "redirect:" + session.getAttribute("returnURL");
             }
         }
         catch (ExceptionInvalidAdministratorId
@@ -50,8 +50,8 @@ public class AdminLoginSubmitController {
                 | SQLException
                 exc
         ) {
-            session.setAttribute("login_error", "Failed login");
-            return "redirect:" + session.getAttribute("return_url");
+            session.setAttribute("loginError", "Failed login");
+            return "redirect:" + session.getAttribute("returnURL");
         }
     }
 

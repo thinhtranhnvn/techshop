@@ -10,21 +10,21 @@
         <div class="container mw-810px">
             <h1 class="mb-5"> Add Brand </h1>
 
-            <div class="mb-3 text-danger" th:if="${add_error != null}" th:text="|${add_error}|" />
+            <div class="mb-3 text-danger" th:if="${addError != null}" th:text="${addError}" />
 
             <div class="mb-3 mw-360px">
                 <label for="name" class="form-label"> Name </label>
-                <input type="text" class="form-control" name="name" th:value="${submitted_name != null} ? ${submitted_name} : ''" id="name" required autofocus />
+                <input type="text" class="form-control" name="name" id="name" th:value="${submittedName != null} ? ${submittedName} : ''" required autofocus />
             </div>
 
             <div class="mb-3 mw-360px">
                 <label for="image-url" class="form-label"> Image URL </label>
-                <input type="text" class="form-control" name="image-url" th:value="${submitted_image_url != null} ? ${submitted_image_url} : ''" id="image-url" required />
+                <input type="text" class="form-control" name="image-url" id="image-url" th:value="${submittedImageURL != null} ? ${submittedImageURL} : ''" required />
             </div>
 
             <div class="mb-4 mw-360px">
                 <label for="slug" class="form-label"> Slug (e.g. harman-kardon) </label>
-                <input type="text" class="form-control" name="slug" th:value="${submitted_slug != null} ? ${submitted_slug} : ''" id="slug" required />
+                <input type="text" class="form-control" name="slug" th:value="${submittedSlug != null} ? ${submittedSlug} : ''" id="slug" required />
             </div>
 
             <button type="submit" class="btn btn-primary"> Submit </button>
