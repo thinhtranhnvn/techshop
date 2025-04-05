@@ -19,22 +19,12 @@ class Database {
     }
 
     public static Connection getConnection() throws SQLException {
-        try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            return connection;
-        }
-        catch (SQLException exc) {
-            throw exc;
-        }
+        connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        return connection;
     }
 
     public static void closeConnection() throws SQLException {
-        try {
-            connection.close();
-        }
-        catch (SQLException exc) {
-            throw exc;
-        }
+        connection.close();
     }
     
 }

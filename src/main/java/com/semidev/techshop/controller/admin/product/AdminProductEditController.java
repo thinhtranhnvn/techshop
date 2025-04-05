@@ -1,23 +1,5 @@
 package com.semidev.techshop.controller.admin.product;
 
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
-import com.semidev.techshop.exception.ExceptionInvalidBrandId;
-import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
-import com.semidev.techshop.exception.ExceptionInvalidBrandName;
-import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
-import com.semidev.techshop.exception.ExceptionInvalidImageURL;
-import com.semidev.techshop.exception.ExceptionInvalidProductDescription;
-import com.semidev.techshop.exception.ExceptionInvalidProductDiscount;
-import com.semidev.techshop.exception.ExceptionInvalidProductEditedBy;
-import com.semidev.techshop.exception.ExceptionInvalidProductEditedDate;
-import com.semidev.techshop.exception.ExceptionInvalidProductId;
-import com.semidev.techshop.exception.ExceptionInvalidProductImageId;
-import com.semidev.techshop.exception.ExceptionInvalidProductName;
-import com.semidev.techshop.exception.ExceptionInvalidProductPrice;
-import com.semidev.techshop.exception.ExceptionInvalidProductSlug;
-import com.semidev.techshop.exception.ExceptionInvalidProductSpecification;
-import com.semidev.techshop.exception.ExceptionNullProductPromotion;
 import com.semidev.techshop.model.service.BrandService;
 import com.semidev.techshop.model.service.ProductJoinBrandJoinProductImageService;
 
@@ -28,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 @Controller
@@ -56,27 +35,7 @@ public class AdminProductEditController {
                     model.addAttribute("brandList", brandList);
                     model.addAttribute("productImageList", productJoinBrandJoinProductImage.productImageList);
                 }
-                catch (ExceptionInvalidBrandId
-                        | ExceptionInvalidImageURL
-                        | ExceptionInvalidProductDescription
-                        | ExceptionInvalidProductDiscount
-                        | ExceptionInvalidProductEditedBy
-                        | ExceptionInvalidProductEditedDate
-                        | ExceptionInvalidProductId
-                        | ExceptionInvalidProductImageId
-                        | ExceptionInvalidProductName
-                        | ExceptionInvalidProductPrice
-                        | ExceptionInvalidProductSlug
-                        | ExceptionInvalidProductSpecification
-                        | ExceptionNullProductPromotion
-                        | SQLException
-                        | ExceptionInvalidBrandName
-                        | ExceptionInvalidBrandImageURL
-                        | ExceptionInvalidBrandSlug
-                        | ExceptionInvalidBrandEditedDate
-                        | ExceptionInvalidBrandEditedBy
-                        exc
-                ) {
+                catch (Exception exc) {
                     model.addAttribute("editError", "Failed database connection");
                 }
             }

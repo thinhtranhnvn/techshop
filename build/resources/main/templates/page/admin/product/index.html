@@ -24,8 +24,9 @@
                 </div>
             </div>
 
-            <div class="mb-2 text-danger" th:if="${indexError != null}" th:text="|${indexError}|" />
-            <div class="mb-2 text-danger" th:if="${deleteError != null}" th:text="|${deleteError}|" />
+            <div class="mb-2 text-success" th:if="${addInfo != null}" th:text="${addInfo}" />
+            <div class="mb-2 text-danger" th:if="${indexError != null}" th:text="${indexError}" />
+            <div class="mb-2 text-danger" th:if="${deleteError != null}" th:text="${deleteError}" />
 
             <table class="table">
                 <thead>
@@ -49,12 +50,17 @@
                         <td th:text="${product.getEditedBy()}" />
                         <td>
                             <div class="mb-1">
+                                <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/product/view?slug=${product.getSlug()}|}">
+                                    <i class="fas fa-eye me-1"></i> View
+                                </a>
+                            </div>
+                            <div class="mb-1">
                                 <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/admin/product/edit?id=${product.getId()}|}">
                                     <i class="fas fa-edit me-1"></i> Edit
                                 </a>
                             </div>
                             <div>
-                                <a class="btn btn-danger w-100px btn-delete-brand" th:href="@{|/admin/product/delete?id=${product.getId()}|}">
+                                <a class="btn btn-danger w-100px btn-delete-product" th:href="@{|/admin/product/delete?id=${product.getId()}|}">
                                     <i class="fas fa-trash-alt me-1"></i> Delete
                                 </a>
                             </div>

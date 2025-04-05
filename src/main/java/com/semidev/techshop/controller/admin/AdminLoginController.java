@@ -11,7 +11,10 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AdminLoginController {
 
-    @GetMapping("/admin/login")
+    @GetMapping({
+        "/admin/login",
+        "/admin/login/"
+    })
     public String accept(HttpServletRequest request, HttpSession session, Model model) {
         if (session.getAttribute("adminUsername") != null) {
             session.setAttribute("submittedUsername", null);

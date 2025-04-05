@@ -62,20 +62,7 @@ public class ProductService {
                 return null;
             }
         }
-        catch (SQLException
-                | ExceptionInvalidProductId
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidProductName
-                | ExceptionInvalidProductPrice
-                | ExceptionInvalidProductDescription
-                | ExceptionInvalidProductSpecification
-                | ExceptionInvalidProductSlug
-                | ExceptionInvalidProductEditedDate
-                | ExceptionInvalidProductEditedBy
-                | ExceptionInvalidProductDiscount
-                | ExceptionNullProductPromotion
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }
@@ -182,20 +169,7 @@ public class ProductService {
            }
            return productList;
         }
-        catch (SQLException
-                | ExceptionInvalidProductId
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidProductName
-                | ExceptionInvalidProductPrice
-                | ExceptionInvalidProductDescription
-                | ExceptionInvalidProductSpecification
-                | ExceptionInvalidProductSlug
-                | ExceptionInvalidProductEditedDate
-                | ExceptionInvalidProductEditedBy
-                | ExceptionInvalidProductDiscount
-                | ExceptionNullProductPromotion
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }
@@ -264,20 +238,7 @@ public class ProductService {
            }
            return productList;
         }
-        catch (SQLException
-                | ExceptionInvalidProductId
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidProductName
-                | ExceptionInvalidProductPrice
-                | ExceptionInvalidProductDescription
-                | ExceptionInvalidProductSpecification
-                | ExceptionInvalidProductSlug
-                | ExceptionInvalidProductEditedDate
-                | ExceptionInvalidProductEditedBy
-                | ExceptionInvalidProductDiscount
-                | ExceptionNullProductPromotion
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }
@@ -322,20 +283,7 @@ public class ProductService {
                 return null;
             }
         }
-        catch (SQLException
-                | ExceptionInvalidProductId
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidProductName
-                | ExceptionInvalidProductPrice
-                | ExceptionInvalidProductDescription
-                | ExceptionInvalidProductSpecification
-                | ExceptionInvalidProductSlug
-                | ExceptionInvalidProductEditedDate
-                | ExceptionInvalidProductEditedBy
-                | ExceptionInvalidProductDiscount
-                | ExceptionNullProductPromotion
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }

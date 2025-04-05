@@ -44,12 +44,7 @@ public class AdminLoginSubmitController {
                 return "redirect:" + session.getAttribute("returnURL");
             }
         }
-        catch (ExceptionInvalidAdministratorId
-                | ExceptionInvalidAdministratorPassword
-                | ExceptionInvalidAdministratorUsername
-                | SQLException
-                exc
-        ) {
+        catch (Exception exc) {
             session.setAttribute("loginError", "Failed login");
             return "redirect:" + session.getAttribute("returnURL");
         }

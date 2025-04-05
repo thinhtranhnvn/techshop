@@ -1,12 +1,5 @@
 package com.semidev.techshop.controller.admin.brand;
 
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
-import com.semidev.techshop.exception.ExceptionInvalidBrandId;
-import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
-import com.semidev.techshop.exception.ExceptionInvalidBrandName;
-import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
-import com.semidev.techshop.exception.ExceptionNullBrand;
 import com.semidev.techshop.model.service.BrandJoinProductService;
 import com.semidev.techshop.model.service.BrandService;
 
@@ -17,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
-import java.sql.SQLException;
 
 
 @Controller

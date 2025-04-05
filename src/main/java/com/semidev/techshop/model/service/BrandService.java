@@ -46,8 +46,10 @@ public class BrandService {
                     + "LIMIT 1";
             var statement = connection.prepareStatement(sql);
             var result = statement.executeQuery();
-            if (result.next()) return result.getInt("id");
-            else return 0;
+            if (result.next())
+                return result.getInt("id");
+            else
+                return 0;
         }
         catch (SQLException exc) {
             throw exc;
@@ -74,9 +76,8 @@ public class BrandService {
                 var id         = result.getInt("id");
                 var name       = result.getString("name");
                 var imageURL   = result.getString("image_url");
-                var dateString = result.getString("edited_date");
                 var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                var editedDate = LocalDateTime.parse(dateString, formatter);
+                var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
                 var editedBy   = result.getString("edited_by");
                 return Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
             }
@@ -84,15 +85,7 @@ public class BrandService {
                 return null;
             }
         }
-        catch (ExceptionInvalidBrandId
-                | ExceptionInvalidBrandName
-                | ExceptionInvalidBrandImageURL
-                | ExceptionInvalidBrandSlug
-                | ExceptionInvalidBrandEditedDate
-                | ExceptionInvalidBrandEditedBy
-                | SQLException
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }
@@ -117,9 +110,8 @@ public class BrandService {
                 var name       = result.getString("name");
                 var imageURL   = result.getString("image_url");
                 var slug       = result.getString("slug");
-                var dateString = result.getString("edited_date");
                 var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                var editedDate = LocalDateTime.parse(dateString, formatter);
+                var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
                 var editedBy   = result.getString("edited_by");
                 return Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
             }
@@ -127,15 +119,7 @@ public class BrandService {
                 return null;
             }
         }
-        catch (SQLException
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidBrandName
-                | ExceptionInvalidBrandImageURL
-                | ExceptionInvalidBrandSlug
-                | ExceptionInvalidBrandEditedDate
-                | ExceptionInvalidBrandEditedBy
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }
@@ -166,24 +150,15 @@ public class BrandService {
                var name       = result.getString("name");
                var imageURL   = result.getString("image_url");
                var slug       = result.getString("slug");
-               var dateString = result.getString("edited_date");
                var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-               var editedDate = LocalDateTime.parse(dateString, formatter);
+               var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
                var editedBy   = result.getString("edited_by");
                var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
                brandList.add(record);
            }
            return brandList;
         }
-        catch (SQLException
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidBrandName
-                | ExceptionInvalidBrandImageURL
-                | ExceptionInvalidBrandSlug
-                | ExceptionInvalidBrandEditedDate
-                | ExceptionInvalidBrandEditedBy
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }
@@ -272,24 +247,15 @@ public class BrandService {
                var name       = result.getString("name");
                var imageURL   = result.getString("image_url");
                var slug       = result.getString("slug");
-               var dateString = result.getString("edited_date");
                var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-               var editedDate = LocalDateTime.parse(dateString, formatter);
+               var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
                var editedBy   = result.getString("edited_by");
                var record = Brand.createInstance(id, name, imageURL, slug, editedDate, editedBy);
                brandList.add(record);
            }
            return brandList;
         }
-        catch (SQLException
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidBrandName
-                | ExceptionInvalidBrandImageURL
-                | ExceptionInvalidBrandSlug
-                | ExceptionInvalidBrandEditedDate
-                | ExceptionInvalidBrandEditedBy
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }
@@ -345,15 +311,7 @@ public class BrandService {
            }
            return brandList;
         }
-        catch (SQLException
-                | ExceptionInvalidBrandId
-                | ExceptionInvalidBrandName
-                | ExceptionInvalidBrandImageURL
-                | ExceptionInvalidBrandSlug
-                | ExceptionInvalidBrandEditedDate
-                | ExceptionInvalidBrandEditedBy
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }

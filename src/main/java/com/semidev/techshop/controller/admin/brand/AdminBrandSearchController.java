@@ -1,11 +1,5 @@
 package com.semidev.techshop.controller.admin.brand;
 
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
-import com.semidev.techshop.exception.ExceptionInvalidBrandId;
-import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
-import com.semidev.techshop.exception.ExceptionInvalidBrandName;
-import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
 import com.semidev.techshop.model.service.BrandService;
 
 import org.springframework.stereotype.Controller;
@@ -15,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
 
 
 @Controller
@@ -33,10 +26,10 @@ public class AdminBrandSearchController {
         }
         else {
             try {
-                model.addAttribute("title", "Brand search");
+                model.addAttribute("title", "Search Brand");
                 model.addAttribute("keywords", keywords);
                 int brandPerPage = 10;
-                var maxPage = (int) Math.ceil((double) BrandService.selectCountBrandByNameLike(keywords) / brandPerPage);
+                var maxPage = (int) Math.ceil((float) BrandService.selectCountBrandByNameLike(keywords) / brandPerPage);
                 model.addAttribute("previousPage", (1 < currentPage) ? (currentPage - 1) : null);
                 model.addAttribute("nextPage", (currentPage < maxPage) ? (currentPage + 1) : null);
                 if (currentPage < 0 || maxPage < currentPage) {
@@ -46,7 +39,6 @@ public class AdminBrandSearchController {
                     var brandList = BrandService.selectBrandByNameLikeOrderByEditedDateDescLimitOffset(keywords, brandPerPage, (currentPage - 1) * brandPerPage);
                     model.addAttribute("brandList", brandList);
                 }
-                model.addAttribute("searchError", null);
                 return "page/admin/brand/search.html";
             }
             catch (Exception exc) {

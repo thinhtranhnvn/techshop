@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 
 
@@ -85,6 +85,17 @@ public class AdminProductEditSubmitController {
                             ProductImageService.insertIntoProductImage(productImage);
                         }
                     }
+                    session.setAttribute("editInfo", "Successfully updated product");
+                    session.setAttribute("submittedId", null);
+                    session.setAttribute("submittedBrandId", null);
+                    session.setAttribute("submittedName", null);
+                    session.setAttribute("submitedImageURL", null);
+                    session.setAttribute("submittedPrice", null);
+                    session.setAttribute("submittedDiscount", null);
+                    session.setAttribute("submittedPromotion", null);
+                    session.setAttribute("submittedDescription", null);
+                    session.setAttribute("submittedSpecification", null);
+                    session.setAttribute("submittedSlug", null);
                     return "redirect:" + "/admin/product";
                 }
                 else {

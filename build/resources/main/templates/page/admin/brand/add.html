@@ -24,7 +24,7 @@
 
             <div class="mb-4 mw-360px">
                 <label for="slug" class="form-label"> Slug (e.g. harman-kardon) </label>
-                <input type="text" class="form-control" name="slug" th:value="${submittedSlug != null} ? ${submittedSlug} : ''" id="slug" required />
+                <input type="text" class="form-control" name="slug" id="slug" th:value="${submittedSlug != null} ? ${submittedSlug} : ''" required />
             </div>
 
             <button type="submit" class="btn btn-primary"> Submit </button>

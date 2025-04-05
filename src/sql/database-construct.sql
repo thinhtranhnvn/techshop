@@ -69,17 +69,17 @@ create table category (
     edited_by   varchar(32) not null
 );
 
-create table category_product_detail (
+create table catpro (
     category_id int not null,
     product_id  int not null
 );
 
-alter table category_product_detail
-add constraint fk_category_product_detail_category
+alter table catpro
+add constraint fk_catpro_category
 foreign key (category_id) references category(id);
 
-alter table category_product_detail
-add constraint fk_category_product_detail_product
+alter table catpro
+add constraint fk_catpro_product
 foreign key (product_id) references product(id);
 
 --
@@ -93,16 +93,16 @@ create table collection (
     edited_by   varchar(32) not null
 );
 
-create table collection_product_detail (
+create table colpro (
     collection_id int not null,
     product_id    int not null,
     `order`       int not null
 );
 
-alter table collection_product_detail
-add constraint fk_collection_product_detail_collection
+alter table colpro
+add constraint fk_colpro_collection
 foreign key (collection_id) references collection(id);
 
-alter table collection_product_detail
-add constraint fk_collection_product_detail_product
+alter table colpro
+add constraint fk_colpro_product
 foreign key (product_id) references product(id);

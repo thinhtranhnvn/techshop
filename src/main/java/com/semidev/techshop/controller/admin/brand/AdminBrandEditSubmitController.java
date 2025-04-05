@@ -53,7 +53,6 @@ public class AdminBrandEditSubmitController {
                     session.setAttribute("submittedName", null);
                     session.setAttribute("submittedImageURL", null);
                     session.setAttribute("submittedSlug", null);
-                    session.setAttribute("editError", null);
                     return "redirect:" + "/admin/brand";
                 }
                 else {

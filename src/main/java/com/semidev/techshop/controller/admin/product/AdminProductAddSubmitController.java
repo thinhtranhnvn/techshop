@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class AdminProductAddSubmitController {
                             ProductImageService.insertIntoProductImage(productImage);
                         }
                     }
+                    session.setAttribute("addInfo", "Successfully added product");
                     session.setAttribute("submittedBrandId", null);
                     session.setAttribute("submittedName", null);
                     session.setAttribute("submittedImageURL", null);
@@ -87,7 +89,6 @@ public class AdminProductAddSubmitController {
                     session.setAttribute("submittedDescription", null);
                     session.setAttribute("submittedSpecification", null);
                     session.setAttribute("submittedSlug", null);
-                    session.setAttribute("addError", null);
                     return "redirect:" + "/admin/product";
                 }
                 else {

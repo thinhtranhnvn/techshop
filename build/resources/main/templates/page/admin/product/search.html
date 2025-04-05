@@ -8,7 +8,7 @@
 
     <main class="py-5">
         <div class="container">
-            <h1 class="mb-5"> Product Search </h1>
+            <h1 class="mb-5"> Search Product </h1>
 
             <div class="row">
                 <div class="col-xs-4 col-md-6 col-lg-8 mb-3">
@@ -48,12 +48,17 @@
                         <td th:text="${product.getEditedBy()}" />
                         <td>
                             <div class="mb-1">
+                                <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/admin/product/view?id=${product.getId()}|}">
+                                    <i class="fas fa-eye me-1"></i> View
+                                </a>
+                            </div>
+                            <div class="mb-1">
                                 <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/admin/product/edit?id=${product.getId()}|}">
                                     <i class="fas fa-edit me-1"></i> Edit
                                 </a>
                             </div>
                             <div>
-                                <a class="btn btn-danger w-100px btn-delete-brand" th:href="@{|/admin/product/delete?id=${product.getId()}|}">
+                                <a class="btn btn-danger w-100px btn-delete-product" th:href="@{|/admin/product/delete?id=${product.getId()}|}">
                                     <i class="fas fa-trash-alt me-1"></i> Delete
                                 </a>
                             </div>

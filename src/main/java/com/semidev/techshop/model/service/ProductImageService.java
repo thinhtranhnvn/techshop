@@ -69,12 +69,7 @@ public class ProductImageService {
             }
             return productImageList;
         }
-        catch (SQLException
-                | ExceptionInvalidImageURL
-                | ExceptionInvalidProductId
-                | ExceptionInvalidProductImageId
-                exc
-        ) {
+        catch (SQLException exc) {
             throw exc;
         }
     }

@@ -1,12 +1,5 @@
 package com.semidev.techshop.controller.admin.brand;
 
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
-import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
-import com.semidev.techshop.exception.ExceptionInvalidBrandId;
-import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
-import com.semidev.techshop.exception.ExceptionInvalidBrandName;
-import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
-import com.semidev.techshop.model.entity.Brand;
 import com.semidev.techshop.model.service.BrandService;
 
 import org.springframework.stereotype.Controller;
@@ -16,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
 
 
 @Controller
@@ -38,16 +30,8 @@ public class AdminBrandEditController {
                     var brand = BrandService.selectBrandById(id);
                     model.addAttribute("brand", brand);
                 }
-                catch (ExceptionInvalidBrandEditedBy
-                        | ExceptionInvalidBrandEditedDate
-                        | ExceptionInvalidBrandId
-                        | ExceptionInvalidBrandImageURL
-                        | ExceptionInvalidBrandName
-                        | ExceptionInvalidBrandSlug
-                        | SQLException
-                        exc
-                ) {
-                    model.addAttribute("editError", "Failed database connection");
+                catch (Exception exc) {
+                    model.addAttribute("editError", "Failed connecting to database");
                 }
             }
             else {
