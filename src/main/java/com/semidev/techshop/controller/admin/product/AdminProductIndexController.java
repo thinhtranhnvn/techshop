@@ -30,7 +30,7 @@ public class AdminProductIndexController {
             try {
                 model.addAttribute("title", "Product Index");
                 int productPerPage = 10;
-                int maxPage = (int) Math.ceil((float) ProductService.selectCountAllProduct() / productPerPage);
+                var maxPage = (int) Math.ceil((float) ProductService.selectCountAllProduct() / productPerPage);
                 model.addAttribute("previousPage", (1 < currentPage) ? (currentPage - 1) : null);
                 model.addAttribute("nextPage", (currentPage < maxPage) ? (currentPage + 1) : null);
                 if (currentPage < 0 || maxPage < currentPage) {

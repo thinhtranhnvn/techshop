@@ -1,0 +1,47 @@
+package com.semidev.techshop.model.entity;
+
+import com.semidev.techshop.exception.ExceptionInvalidCategoryId;
+import com.semidev.techshop.exception.ExceptionInvalidProductId;
+
+
+public class CatPro {
+    
+    private Integer categoryId;
+    
+        public int getCategoryId() {
+            return this.categoryId;
+        }
+        
+        public void setCategoryId(int categoryId) throws ExceptionInvalidCategoryId {
+            if (categoryId < 1)
+                throw new ExceptionInvalidCategoryId("Invalid category id");
+            else
+                this.categoryId = categoryId;
+        }
+    
+    private Integer productId;
+    
+        public int getProductId() {
+            return this.productId;
+        }
+        
+        public void setProductId(int productId) throws ExceptionInvalidProductId {
+            if (productId < 1)
+                throw new ExceptionInvalidProductId("Invalid category id");
+            else
+                this.productId = productId;
+        }
+    
+    public static CatPro createInstance(
+        int categoryId,
+        int productId
+    ) throws ExceptionInvalidCategoryId
+           , ExceptionInvalidProductId
+    {
+        var instance = new CatPro();
+        instance.setCategoryId(categoryId);
+        instance.setProductId(productId);
+        return instance;
+    }
+    
+}
