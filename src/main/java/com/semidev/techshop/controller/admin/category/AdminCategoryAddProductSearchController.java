@@ -38,11 +38,11 @@ public class AdminCategoryAddProductSearchController {
                 model.addAttribute("nextPage", (currentPage < maxPage) ? (currentPage + 1) : null);
                 var productList = ProductService.selectProductByNameLikeNotInCategoryOrderByEditedDateDescLimitOffset(keywords, categoryId, productPerPage, (currentPage - 1) * productPerPage);
                 model.addAttribute("productList", productList);
-                return "page/admin/category/product-search.html";
+                return "page/admin/category/add-product-search.html";
             }
             catch (Exception exc) {
                 model.addAttribute("indexProductError", "Failed connecting to database");
-                return "page/admin/category/product-search.html";
+                return "page/admin/category/add-product-search.html";
             }
         }
     }

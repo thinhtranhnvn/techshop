@@ -2,6 +2,7 @@ package com.semidev.techshop.controller.admin.category;
 
 import com.semidev.techshop.model.service.CategoryService;
 import com.semidev.techshop.model.service.ProductService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -27,8 +28,9 @@ public class AdminCategoryProductSearchController {
         }
         else {
             try {
-                model.addAttribute("title", "View Category");
+                model.addAttribute("title", "Search Category");
                 var category = CategoryService.selectCategoryById(categoryId);
+                model.addAttribute("keywords", keywords);
                 model.addAttribute("category", category);
                 int productPerPage = 10;
                 var maxPage = (int) Math.ceil((float) ProductService.selectCountProductByNameLikeInCategory(keywords, categoryId) / productPerPage);
@@ -40,11 +42,11 @@ public class AdminCategoryProductSearchController {
                 session.setAttribute("addProductInfo", null);
                 model.addAttribute("addProductError", session.getAttribute("addProductError"));
                 session.setAttribute("addProductError", null);
-                return "page/admin/category/view.html";
+                return "page/admin/category/product-search.html";
             }
             catch (Exception exc) {
                 model.addAttribute("indexProductError", "Failed connecting to database");
-                return "page/admin/category/view.html";
+                return "page/admin/category/product-search.html";
             }
         }
     }

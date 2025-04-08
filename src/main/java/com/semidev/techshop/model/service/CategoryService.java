@@ -4,7 +4,6 @@ import com.semidev.techshop.exception.ExceptionInvalidCategoryEditedBy;
 import com.semidev.techshop.exception.ExceptionInvalidCategoryId;
 import com.semidev.techshop.exception.ExceptionInvalidCategoryName;
 import com.semidev.techshop.exception.ExceptionInvalidCategorySlug;
-import com.semidev.techshop.exception.ExceptionNullCategory;
 import com.semidev.techshop.exception.ExceptionNullCategoryEditedDate;
 import com.semidev.techshop.model.entity.Category;
 
@@ -32,8 +31,8 @@ public class CategoryService {
             var statement = connection.prepareStatement(sql);
             var result = statement.executeQuery();
             if (result.next()) {
-                var id = result.getInt("id");
-                var name = result.getString("name");
+                var id       = result.getInt("id");
+                var name     = result.getString("name");
                 var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
                 var editedBy = result.getString("edited_by");
@@ -248,24 +247,16 @@ public class CategoryService {
         }
     }
     
-    public static void deleteFromCategory(Category record)
-        throws ExceptionNullCategory
-             , SQLException
-    {
-        if (record == null) {
-            throw new ExceptionNullCategory("The category pointer is null");
+    public static void deleteFromCategory(Category record) throws SQLException {
+        try (var connection = Database.getConnection()) {
+            var sql = "DELETE FROM category "
+                    + "WHERE id = %d";
+            sql = String.format(sql, record.getId());
+            var statement = connection.prepareStatement(sql);
+            statement.executeUpdate();
         }
-        else {
-            try (var connection = Database.getConnection()) {
-                var sql = "DELETE FROM category "
-                        + "WHERE id = %d";
-                sql = String.format(sql, record.getId());
-                var statement = connection.prepareStatement(sql);
-                statement.executeUpdate();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
+        catch (SQLException exc) {
+            throw exc;
         }
     }
     

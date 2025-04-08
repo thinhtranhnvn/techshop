@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <div class="py-5">
+        <div class="container">
+            <h1 class="mb-5" th:text="${collection.getName()}" />
+
+            <div class="row">
+                <div class="col-xs-4 col-md-6 col-lg-8 mb-3">
+                    <a class="btn btn-primary" th:href="@{|/admin/collection/add-product?collection-id=${collection.getId()}|}">
+                        <i class="fas fa-plus-circle"></i> Add product
+                    </a>
+                </div>
+                <div class="col-xs-8 col-md-6 col-lg-4 mb-3">
+                    <form class="input-group" action="/admin/collection/product-search" method="get">
+                        <input type="hidden" name="collection-id" th:value="${collection.getId()}" />
+                        <input type="text" class="form-control" name="keywords" placeholder="Search for product's name" aria-label="Product's name" aria-describedby="search" />
+                        <button class="btn btn-secondary" type="submit" id="search"> Search </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="text-danger mb-2" th:if="${indexProductError} != null" th:text="${indexProductError}" />
+            <div class="text-danger mb-2" th:if="${addProductError} != null" th:text="${addProductError}" />
+            <div class="text-success mb-2" th:if="${addProductInfo} != null" th:text="${addProductInfo}" />
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> Id </th>
+                        <th scope="col"> Name </th>
+                        <th scope="col"> Included </th>
+                        <th scope="col"> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${productList}">
+                        <form method="post" action="/admin/collection/add-product-submit">
+                            <input type="hidden" name="collection-id" th:value="${collection.getId()}" />
+                            <input type="hidden" name="product-id" th:value="${product.getId()}" />
+                            <td th:text="${product.getId()}" />
+                            <td th:text="${product.getName()}" />
+                            <td>
+                                <input type="radio" name="included" value="1" checked /> Yes
+                                <br />
+                                <input type="radio" name="included" value="0" /> No
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary"> Apply </button>
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-outline-secondary" th:if="${previousPage != null}" th:href="@{|/admin/collection/view?collection-id=${collection.getId()}&page=${previousPage}|}">
+                        <i class="fas fa-arrow-left me-1"></i> Previous
+                    </a>
+                </div>
+                <div class="col text-end">
+                    <a class="btn btn-outline-secondary" th:if="${nextPage != null}" th:href="@{|/admin/collection/view?collection-id=${collection.getId()}&page=${nextPage}|}">
+                        Next <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

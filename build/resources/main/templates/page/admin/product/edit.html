@@ -32,7 +32,7 @@
 
             <div class="mb-3 mw-360px">
                 <label for="image-url" class="form-label"> Image URL </label>
-                <input th:each="productImage : ${productImageList}" th:value="${productImage.getImageURL()}" type="text" class="form-control mb-1" name="image-url" id="image-url" />
+                <input th:each="image : ${imageList}" th:value="${image.getImageURL()}" type="text" class="form-control mb-1" name="image-url" id="image-url" />
                 <button class="btn btn-primary btn-more-images mt-2" type="button">
                     <i class="fas fa-plus-circle"></i> More Images
                 </button>

@@ -5,9 +5,7 @@ import java.sql.SQLException;
 
 public class BrandJoinProductService {
     
-    public static int selectCountBrandJoinProductByBrandId(int brandId)
-        throws SQLException
-    {
+    public static int selectCountBrandJoinProductByBrandId(int brandId) throws SQLException {
         try (var connection = Database.getConnection()) {
             var sql = "SELECT count(*) AS counter FROM brand "
                     + "JOIN product ON brand.id = product.brand_id "

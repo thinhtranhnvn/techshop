@@ -14,7 +14,7 @@ public class CatPro {
         
         public void setCategoryId(int categoryId) throws ExceptionInvalidCategoryId {
             if (categoryId < 1)
-                throw new ExceptionInvalidCategoryId("Invalid category id");
+                throw new ExceptionInvalidCategoryId("Invalid collection id");
             else
                 this.categoryId = categoryId;
         }
@@ -33,13 +33,13 @@ public class CatPro {
         }
     
     public static CatPro createInstance(
-        int categoryId,
+        int collectionId,
         int productId
     ) throws ExceptionInvalidCategoryId
            , ExceptionInvalidProductId
     {
         var instance = new CatPro();
-        instance.setCategoryId(categoryId);
+        instance.setCategoryId(collectionId);
         instance.setProductId(productId);
         return instance;
     }

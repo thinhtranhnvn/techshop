@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Deleted Collection </h1>
+
+            <table class="table mw-810px">
+                <tbody>
+                    <tr>
+                        <th scope="row"> Id </th>
+                        <td th:text="${collection.getId()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Name </th>
+                        <td th:text="${collection.getName()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Slug </th>
+                        <td th:text="${collection.getSlug()}" />
+                    </tr>
+                </tbody>
+            </table>
+            
+            <a class="btn btn-primary mt-3" href="/admin/collection"> Back to Index </a>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

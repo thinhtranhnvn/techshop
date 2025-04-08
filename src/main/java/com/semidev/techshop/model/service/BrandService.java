@@ -1,6 +1,5 @@
 package com.semidev.techshop.model.service;
 
-import com.semidev.techshop.exception.ExceptionNullBrand;
 import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
 import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
 import com.semidev.techshop.exception.ExceptionInvalidBrandId;
@@ -260,24 +259,16 @@ public class BrandService {
         }
     }
     
-    public static void deleteFromBrand(Brand record)
-        throws ExceptionNullBrand
-             , SQLException
-    {
-        if (record == null) {
-            throw new ExceptionNullBrand("The brand pointer is null");
+    public static void deleteFromBrand(Brand record) throws SQLException {
+        try (var connection = Database.getConnection()) {
+            var sql = "DELETE FROM brand "
+                    + "WHERE id = %d";
+            sql = String.format(sql, record.getId());
+            var statement = connection.prepareStatement(sql);
+            statement.executeUpdate();
         }
-        else {
-            try (var connection = Database.getConnection()) {
-                var sql = "DELETE FROM brand "
-                        + "WHERE id = %d";
-                sql = String.format(sql, record.getId());
-                var statement = connection.prepareStatement(sql);
-                statement.executeUpdate();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
+        catch (SQLException exc) {
+            throw exc;
         }
     }
     

@@ -1,6 +1,5 @@
 package com.semidev.techshop.model.service;
 
-import com.semidev.techshop.exception.ExceptionNullCatPro;
 import com.semidev.techshop.model.entity.CatPro;
 
 import java.sql.SQLException;
@@ -38,27 +37,19 @@ public class CatProService {
         }
     }
     
-    public static void deleteFromCatPro(CatPro record)
-        throws ExceptionNullCatPro
-             , SQLException
-    {
-        if (record == null) {
-            throw new ExceptionNullCatPro("The CatPro pointer cannot be null");
+    public static void deleteFromCatPro(CatPro record) throws SQLException {
+        try (var connection = Database.getConnection()) {
+            var categoryId = record.getCategoryId();
+            var productId  = record.getProductId();
+            var sql = "DELETE FROM catpro "
+                    + "WHERE category_id = %d "
+                    + "AND product_id = %d";
+            sql = String.format(sql, categoryId, productId);
+            var statement = connection.prepareStatement(sql);
+            statement.executeUpdate();
         }
-        else {
-            try (var connection = Database.getConnection()) {
-                var categoryId = record.getCategoryId();
-                var productId  = record.getProductId();
-                var sql = "DELETE FROM catpro "
-                        + "WHERE category_id = %d "
-                        + "AND product_id = %d";
-                sql = String.format(sql, categoryId, productId);
-                var statement = connection.prepareStatement(sql);
-                statement.executeUpdate();
-            }
-            catch (SQLException exc) {
-                throw exc;
-            }
+        catch (SQLException exc) {
+            throw exc;
         }
     }
     

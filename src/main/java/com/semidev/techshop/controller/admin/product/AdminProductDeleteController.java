@@ -1,7 +1,7 @@
 package com.semidev.techshop.controller.admin.product;
 
 import com.semidev.techshop.model.service.BrandService;
-import com.semidev.techshop.model.service.ProductImageService;
+import com.semidev.techshop.model.service.ImageService;
 import com.semidev.techshop.model.service.ProductService;
 
 import org.springframework.stereotype.Controller;
@@ -29,14 +29,14 @@ public class AdminProductDeleteController {
             try {
                 var product = ProductService.selectProductById(id);
                 var brand = BrandService.selectBrandById(product.getBrandId());
-                var productImageList = ProductImageService.selectProductImageByProductId(product.getId());
-                for (var productImage : productImageList) {
-                    ProductImageService.deleteFromProductImage(productImage);
+                var imageList = ImageService.selectImageByProductId(product.getId());
+                for (var image : imageList) {
+                    ImageService.deleteFromImage(image);
                 }
                 ProductService.deleteFromProduct(product);
                 model.addAttribute("product", product);
                 model.addAttribute("brand", brand);
-                model.addAttribute("productImage", productImageList.get(0));
+                model.addAttribute("image", imageList.get(0));
                 return "page/admin/product/delete.html";
             }
             catch (Exception exc) {

@@ -1,7 +1,7 @@
 package com.semidev.techshop.controller.admin.product;
 
 import com.semidev.techshop.model.service.BrandService;
-import com.semidev.techshop.model.service.ProductJoinBrandJoinProductImageService;
+import com.semidev.techshop.model.service.ProductJoinBrandJoinImageService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +28,12 @@ public class AdminProductEditController {
             model.addAttribute("title", "Edit Product");
             if (session.getAttribute("submittedName") == null) {
                 try {
-                    var productJoinBrandJoinProductImage = ProductJoinBrandJoinProductImageService.selectProductJoinBrandJoinProductImageByProductId(id);
+                    var productJoinBrandJoinImage = ProductJoinBrandJoinImageService.selectProductJoinBrandJoinImageByProductId(id);
                     var brandList = BrandService.selectAllBrandOrderByNameAsc();
-                    model.addAttribute("product", productJoinBrandJoinProductImage.product);
-                    model.addAttribute("brand", productJoinBrandJoinProductImage.brand);
+                    model.addAttribute("product", productJoinBrandJoinImage.product);
+                    model.addAttribute("brand", productJoinBrandJoinImage.brand);
                     model.addAttribute("brandList", brandList);
-                    model.addAttribute("productImageList", productJoinBrandJoinProductImage.productImageList);
+                    model.addAttribute("imageList", productJoinBrandJoinImage.imageList);
                 }
                 catch (Exception exc) {
                     model.addAttribute("editError", "Failed database connection");

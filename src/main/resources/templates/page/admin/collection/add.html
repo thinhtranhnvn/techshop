@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <form class="py-5" action="/admin/collection/add-submit" method="post">
+        <div class="container mw-810px">
+            <h1 class="mb-5"> Add Collection </h1>
+
+            <div class="mb-3 text-danger" th:if="${addError != null}" th:text="${addError}" />
+
+            <div class="mb-3 mw-360px">
+                <label for="name" class="form-label"> Name </label>
+                <input type="text" class="form-control" name="name" id="name" th:value="${submittedName != null} ? ${submittedName} : ''" required autofocus />
+            </div>
+
+            <div class="mb-3 mw-360px">
+                <label for="slug" class="form-label"> Slug (e.g. promotional-smartphones) </label>
+                <input type="text" class="form-control" name="slug" id="slug" th:value="${submittedSlug != null} ? ${submittedSlug} : ''" required />
+            </div>
+            
+            <div class="mb-4 mw-360px">
+                <label for="priority" class="form-label"> Priority </label>
+                <input type="number" class="form-control" step="1" min="0" name="priority" id="priority" th:value="${submittedPriority != null} ? ${submittedPriority} : ''" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary"> Submit </button>
+            <button type="reset" class="btn btn-secondary"> Reset </button>
+        </div>
+    </form>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

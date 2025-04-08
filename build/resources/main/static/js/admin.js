@@ -5,15 +5,21 @@ $(document).ready(function() {
        if (bool) window.location = this.href;
    });
    
+   $(".btn-delete-product").on("click", function(event) {
+       event.preventDefault();
+       var bool = window.confirm("Do you really want to delete the product?");
+       if (bool) window.location = this.href;
+   });
+   
    $(".btn-delete-category").on("click", function(event) {
        event.preventDefault();
        var bool = window.confirm("Do you really want to delete the category?");
        if (bool) window.location = this.href;
    });
    
-   $(".btn-delete-product").on("click", function(event) {
+   $(".btn-delete-collection").on("click", function(event) {
        event.preventDefault();
-       var bool = window.confirm("Do you really want to delete the product?");
+       var bool = window.confirm("Do you really want to delete the collection?");
        if (bool) window.location = this.href;
    });
    

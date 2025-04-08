@@ -7,16 +7,15 @@ import com.semidev.techshop.exception.ExceptionInvalidProductDiscount;
 import com.semidev.techshop.exception.ExceptionInvalidProductEditedBy;
 import com.semidev.techshop.exception.ExceptionInvalidProductEditedDate;
 import com.semidev.techshop.exception.ExceptionInvalidProductId;
-import com.semidev.techshop.exception.ExceptionInvalidProductImageId;
+import com.semidev.techshop.exception.ExceptionInvalidImageId;
 import com.semidev.techshop.exception.ExceptionInvalidProductName;
 import com.semidev.techshop.exception.ExceptionInvalidProductPrice;
 import com.semidev.techshop.exception.ExceptionInvalidProductSlug;
 import com.semidev.techshop.exception.ExceptionInvalidProductSpecification;
-import com.semidev.techshop.exception.ExceptionNullProductImage;
 import com.semidev.techshop.exception.ExceptionNullProductPromotion;
 import com.semidev.techshop.model.entity.Product;
-import com.semidev.techshop.model.entity.ProductImage;
-import com.semidev.techshop.model.service.ProductImageService;
+import com.semidev.techshop.model.entity.Image;
+import com.semidev.techshop.model.service.ImageService;
 import com.semidev.techshop.model.service.ProductService;
 
 import org.springframework.stereotype.Controller;
@@ -71,18 +70,18 @@ public class AdminProductEditSubmitController {
                     var editedBy = (String) session.getAttribute("adminUsername");
                     var product = Product.createInstance(productId, brandId, name, price, discount, promotion, description, specification, slug, editedDate, editedBy);
                     ProductService.updateProduct(product);
-                    var oldProductImageList = ProductImageService.selectProductImageByProductId(productId);
-                    for (var productImage : oldProductImageList) {
-                        ProductImageService.deleteFromProductImage(productImage);
+                    var oldImageList = ImageService.selectImageByProductId(productId);
+                    for (var image : oldImageList) {
+                        ImageService.deleteFromImage(image);
                     }
                     for (var imageURL : imageURLList) {
                         if (imageURL.isEmpty()) {
                             /* do nothing */
                         }
                         else {
-                            var productImageId = ProductImageService.selectLatestProductImageId() + 1;
-                            var productImage = ProductImage.createInstance(productImageId, productId, imageURL);
-                            ProductImageService.insertIntoProductImage(productImage);
+                            var imageId = ImageService.selectLatestImageId() + 1;
+                            var image = Image.createInstance(imageId, productId, imageURL);
+                            ImageService.insertIntoImage(image);
                         }
                     }
                     session.setAttribute("editInfo", "Successfully updated product");
@@ -131,7 +130,7 @@ public class AdminProductEditSubmitController {
                 session.setAttribute("editError", "Invalid product id");
                 return "redirect:" + "/admin/product/edit?id=" + productId;
             }
-            catch (ExceptionInvalidProductImageId exc) {
+            catch (ExceptionInvalidImageId exc) {
                 session.setAttribute("editError", "Invalid product image id");
                 return "redirect:" + "/admin/product/edit?id=" + productId;
             }
@@ -149,10 +148,6 @@ public class AdminProductEditSubmitController {
             }
             catch (ExceptionInvalidProductSpecification exc) {
                 session.setAttribute("editError", "Invalid product specification");
-                return "redirect:" + "/admin/product/edit?id=" + productId;
-            }
-            catch (ExceptionNullProductImage exc) {
-                session.setAttribute("editError", "The product image pointer is null");
                 return "redirect:" + "/admin/product/edit?id=" + productId;
             }
             catch (ExceptionNullProductPromotion exc) {

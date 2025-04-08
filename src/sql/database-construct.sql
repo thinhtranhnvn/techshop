@@ -49,14 +49,14 @@ foreign key (brand_id) references brand(id);
 
 --
 
-create table product_image (
+create table image (
     id         int        not null auto_increment primary key,
     product_id int        not null,
     image_url  mediumtext not null
 );
 
-alter table product_image
-add constraint fk_product_image_product
+alter table image
+add constraint fk_image_product
 foreign key (product_id) references product(id);
 
 --
@@ -88,15 +88,14 @@ create table collection (
     id          int         not null auto_increment primary key,
     name        varchar(64) not null,
     slug        varchar(64) not null unique,
-    `order`     int         not null,
+    priority    int         not null,
     edited_date datetime    not null,
     edited_by   varchar(32) not null
 );
 
 create table colpro (
     collection_id int not null,
-    product_id    int not null,
-    `order`       int not null
+    product_id    int not null
 );
 
 alter table colpro
