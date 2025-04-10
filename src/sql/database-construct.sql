@@ -105,3 +105,16 @@ foreign key (collection_id) references collection(id);
 alter table colpro
 add constraint fk_colpro_product
 foreign key (product_id) references product(id);
+
+--
+
+create table page (
+    id          int         not null auto_increment primary key,
+    title       varchar(64) not null,
+    menu_name   varchar(16) not null,
+    content     mediumtext  not null,
+    slug        varchar(64) not null unique,
+    priority    int         not null,
+    edited_date datetime    not null,
+    edited_by   varchar(32) not null
+);

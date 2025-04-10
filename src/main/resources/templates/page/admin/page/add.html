@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <form class="py-5" action="/admin/page/add-submit" method="post">
+        <div class="container mw-810px">
+            <h1 class="mb-5"> Add Page </h1>
+
+            <div class="mb-3 text-danger" th:if="${addError != null}" th:text="${addError}" />
+            
+            <div class="mb-3">
+                <label for="title" class="form-label"> Title </label>
+                <input type="text" class="form-control" name="title" id="title" th:value="${submittedTitle != null} ? ${submittedTitle} : ''" required autofocus />
+            </div>
+            
+            <div class="mb-4 mw-360px">
+                <label for="menu-name" class="form-label"> Menu name </label>
+                <input type="text" class="form-control" name="menu-name" id="menu-name" th:value="${submittedMenuName != null} ? ${submittedMenuName} : ''" required />
+            </div>
+            
+            <div class="mb-3">
+                <label for="content" class="form-label"> Content </label>
+                <textarea class="form-control" name="content" id="content" rows="4" cols="32" th:text="${submittedContent != null} ? ${submittedContent} : ''" />
+            </div>
+            
+            <div class="mb-3">
+                <label for="slug" class="form-label"> Slug </label>
+                <input type="text" class="form-control" name="slug" id="slug" th:value="${submittedSlug != null} ? ${submittedSlug} : ''" required />
+            </div>
+            
+            <div class="mb-4 mw-360px">
+                <label for="priority" class="form-label"> Priority </label>
+                <input type="number" class="form-control" min="0" step="1" name="priority" id="priority" th:value="${submittedPriority != null} ? ${submittedPriority} : ''" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary"> Submit </button>
+            <button type="reset" class="btn btn-secondary"> Reset </button>
+        </div>
+    </form>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

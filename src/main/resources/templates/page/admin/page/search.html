@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Search Page </h1>
+
+            <div class="row">
+                <div class="col-xs-4 col-md-6 col-lg-8 mb-3">
+                    <a class="btn btn-primary" href="/admin/page/add">
+                        <i class="fas fa-plus-circle"></i> Add page
+                    </a>
+                </div>
+                <div class="col-xs-8 col-md-6 col-lg-4 mb-3">
+                    <form class="input-group" action="/admin/page/search" method="get">
+                        <input type="text" class="form-control" name="keywords" placeholder="Search for page's title" aria-label="Page's title" aria-describedby="search" th:value="${keywords}" />
+                        <button class="btn btn-secondary" type="submit" id="search"> Search </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mb-2 text-danger" th:if="${searchError != null}" th:text="${searchError}" />
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> Id </th>
+                        <th scope="col"> Title </th>
+                        <th scope="col"> Menu name </th>
+                        <th scope="col"> Last edited </th>
+                        <th scope="col"> Edited by </th>
+                        <th scope="col"> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="page : ${pageList}">
+                        <td th:text="${page.getId()}" />
+                        <td th:text="${page.getTitle()}" />
+                        <td th:text="${page.getMenuName()}" />
+                        <td th:text="${page.getEditedDate().toString().replace('T', ' ')}" />
+                        <td th:text="${page.getEditedBy()}" />
+                        <td>
+                            <div class="mb-1">
+                                <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/page/view?slug=${page.getSlug()}|}">
+                                    <i class="fas fa-eye me-1"></i> View
+                                </a>
+                            </div>
+                            <div class="mb-1">
+                                <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/admin/page/edit?id=${page.getId()}|}">
+                                    <i class="fas fa-edit me-1"></i> Edit
+                                </a>
+                            </div>
+                            <div>
+                                <a class="btn btn-danger w-100px btn-delete-page" th:href="@{|/admin/page/delete?id=${page.getId()}|}">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-outline-secondary" th:if="${previousPage != null}" th:href="@{|/admin/page/search?keywords=${keywords}&page=${previousPage}|}">
+                        <i class="fas fa-arrow-left me-1"></i> Previous
+                    </a>
+                </div>
+                <div class="col text-end">
+                    <a class="btn btn-outline-secondary" th:if="${nextPage != null}" th:href="@{|/admin/page/search?keywords=${keywords}&page=${nextPage}|}">
+                        Next <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

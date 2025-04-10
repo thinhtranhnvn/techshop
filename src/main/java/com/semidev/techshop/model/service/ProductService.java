@@ -74,8 +74,10 @@ public class ProductService {
                     + "LIMIT 1";
             var statement = connection.prepareStatement(sql);
             var result = statement.executeQuery();
-            if (result.next()) return result.getInt("id");
-            else return 0;
+            if (result.next())
+                return result.getInt("id");
+            else
+                return 0;
         }
         catch (SQLException exc) {
             throw exc;

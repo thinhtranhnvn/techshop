@@ -32,8 +32,8 @@ public class AdminProductEditController {
                     var brandList = BrandService.selectAllBrandOrderByNameAsc();
                     model.addAttribute("product", productJoinBrandJoinImage.product);
                     model.addAttribute("brand", productJoinBrandJoinImage.brand);
-                    model.addAttribute("brandList", brandList);
                     model.addAttribute("imageList", productJoinBrandJoinImage.imageList);
+                    model.addAttribute("brandList", brandList);
                 }
                 catch (Exception exc) {
                     model.addAttribute("editError", "Failed database connection");

@@ -39,11 +39,10 @@ public class AdminProductSearchController {
                     var productList = ProductService.selectProductByNameLikeOrderByEditedDateDescLimitOffset(keywords, productPerPage, (currentPage - 1) * productPerPage);
                     model.addAttribute("productList", productList);
                 }
-                model.addAttribute("searchError", null);
                 return "page/admin/product/search.html";
             }
             catch (Exception exc) {
-                model.addAttribute("Failed connecting database");
+                model.addAttribute("searchError", "Failed connecting database");
                 return "page/admin/product/search.html";
             }
         }

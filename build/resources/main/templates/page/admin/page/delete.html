@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Deleted Page </h1>
+
+            <table class="table mw-810px">
+                <tbody>
+                    <tr>
+                        <th scope="row"> Id </th>
+                        <td th:text="${page.getId()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Title </th>
+                        <td th:text="${page.getTitle()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Menu name </th>
+                        <td th:text="${page.getMenuName()}" />
+                    </tr>
+                    <tr>
+                        <th scope="row"> Slug </th>
+                        <td th:text="${page.getSlug()}" />
+                    </tr>
+                </tbody>
+            </table>
+            
+            <a class="btn btn-primary mt-3" href="/admin/page"> Back to Index </a>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>
