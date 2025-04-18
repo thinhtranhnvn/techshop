@@ -14,7 +14,7 @@ public class ColPro {
         
         public void setCollectionId(int collectionId) throws ExceptionInvalidCollectionId {
             if (collectionId < 1)
-                throw new ExceptionInvalidCollectionId("Invalid collection id");
+                throw new ExceptionInvalidCollectionId();
             else
                 this.collectionId = collectionId;
         }
@@ -27,7 +27,7 @@ public class ColPro {
         
         public void setProductId(int productId) throws ExceptionInvalidProductId {
             if (productId < 1)
-                throw new ExceptionInvalidProductId("Invalid category id");
+                throw new ExceptionInvalidProductId();
             else
                 this.productId = productId;
         }

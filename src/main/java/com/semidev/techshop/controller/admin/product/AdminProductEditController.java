@@ -62,6 +62,10 @@ public class AdminProductEditController {
                 session.setAttribute("submittedSpecification", null);
                 model.addAttribute("submittedSlug", session.getAttribute("submittedSlug"));
                 session.setAttribute("submittedSlug", null);
+                model.addAttribute("brandList", session.getAttribute("brandList"));
+                session.setAttribute("brandList", null);
+                model.addAttribute("brand", session.getAttribute("brand"));
+                session.setAttribute("brand", null);
             }
             return "page/admin/product/edit.html";
         }

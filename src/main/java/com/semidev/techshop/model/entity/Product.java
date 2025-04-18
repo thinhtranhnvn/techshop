@@ -25,7 +25,7 @@ public class Product {
         
         public void setId(int id) throws ExceptionInvalidProductId {
             if (id < 1)
-                throw new ExceptionInvalidProductId("Invalid product id");
+                throw new ExceptionInvalidProductId();
             else
                 this.id = id;
         }
@@ -38,7 +38,7 @@ public class Product {
         
         public void setBrandId(int brandId) throws ExceptionInvalidBrandId {
             if (brandId < 1)
-                throw new ExceptionInvalidBrandId("Invalid brand id");
+                throw new ExceptionInvalidBrandId();
             else
                 this.brandId = brandId;
         }
@@ -51,7 +51,7 @@ public class Product {
         
         public void setName(String name) throws ExceptionInvalidProductName {
             if (name == null || name.isEmpty())
-                throw new ExceptionInvalidProductName("Invalid product name");
+                throw new ExceptionInvalidProductName();
             else
                 this.name = name;
         }
@@ -64,7 +64,7 @@ public class Product {
         
         public void setPrice(float price) throws ExceptionInvalidProductPrice {
             if (price < 0)
-                throw new ExceptionInvalidProductPrice("Invalid product price");
+                throw new ExceptionInvalidProductPrice();
             else
                 this.price = price;
         }
@@ -78,7 +78,7 @@ public class Product {
         
         public void setDiscount(float discount) throws ExceptionInvalidProductDiscount {
             if (discount < 0 || 100 < discount)
-                throw new ExceptionInvalidProductDiscount("Invalid product discount");
+                throw new ExceptionInvalidProductDiscount();
             else
                 this.discount = discount;
         }
@@ -91,7 +91,7 @@ public class Product {
         
         public void setPromotion(String promotion) throws ExceptionNullProductPromotion {
             if (promotion == null)
-                throw new ExceptionNullProductPromotion("Product promotion cannot be null");
+                throw new ExceptionNullProductPromotion();
             else
                 this.promotion = promotion;
         }
@@ -104,7 +104,7 @@ public class Product {
         
         public void setDescription(String description) throws ExceptionInvalidProductDescription {
             if (description == null || description.isEmpty())
-                throw new ExceptionInvalidProductDescription("Invalid product description");
+                throw new ExceptionInvalidProductDescription();
             else
                 this.description = description;
         }
@@ -117,7 +117,7 @@ public class Product {
         
         public void setSpecification(String specification) throws ExceptionInvalidProductSpecification {
             if (specification == null || specification.isEmpty())
-                throw new ExceptionInvalidProductSpecification("Invalid product specification");
+                throw new ExceptionInvalidProductSpecification();
             else
                 this.specification = specification;
         }
@@ -130,7 +130,7 @@ public class Product {
         
         public void setSlug(String slug) throws ExceptionInvalidProductSlug {
             if (slug == null || slug.isEmpty())
-                throw new ExceptionInvalidProductSlug("Invalid product slug");
+                throw new ExceptionInvalidProductSlug();
             else
                 this.slug = slug;
         }
@@ -143,7 +143,7 @@ public class Product {
 
         public void setEditedDate(LocalDateTime editedDate) throws ExceptionInvalidProductEditedDate {
             if (editedDate == null)
-                throw new ExceptionInvalidProductEditedDate("Invalid product edited-date");
+                throw new ExceptionInvalidProductEditedDate();
             else
                 this.editedDate = editedDate;
         }
@@ -156,7 +156,7 @@ public class Product {
         
         public void setEditedBy(String editedBy) throws ExceptionInvalidProductEditedBy {
             if (editedBy == null || editedBy.isEmpty())
-                throw new ExceptionInvalidProductEditedBy("Invalid product edited-by");
+                throw new ExceptionInvalidProductEditedBy();
             else
                 this.editedBy = editedBy;
         }

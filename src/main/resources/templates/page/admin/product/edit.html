@@ -12,7 +12,7 @@
 
             <div class="mb-3 text-danger" th:if="${editError != null}" th:text="${editError}" />
             
-            <input type="hidden" name="id" th:value="${product != null} ? ${product.getId()} : submittedId" />
+            <input type="hidden" name="id" th:value="${product != null} ? ${product.getId()} : ${submittedId}" />
             
             <div class="mb-3 mw-360px">
                 <label for="brand-id" class="form-label"> Brand </label>

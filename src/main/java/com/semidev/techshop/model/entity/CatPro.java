@@ -14,7 +14,7 @@ public class CatPro {
         
         public void setCategoryId(int categoryId) throws ExceptionInvalidCategoryId {
             if (categoryId < 1)
-                throw new ExceptionInvalidCategoryId("Invalid collection id");
+                throw new ExceptionInvalidCategoryId();
             else
                 this.categoryId = categoryId;
         }
@@ -27,7 +27,7 @@ public class CatPro {
         
         public void setProductId(int productId) throws ExceptionInvalidProductId {
             if (productId < 1)
-                throw new ExceptionInvalidProductId("Invalid category id");
+                throw new ExceptionInvalidProductId();
             else
                 this.productId = productId;
         }

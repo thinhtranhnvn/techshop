@@ -22,7 +22,7 @@ public class Page {
         
         public void setId(int id) throws ExceptionInvalidPageId {
             if (id < 1)
-                throw new ExceptionInvalidPageId("Invalid page id");
+                throw new ExceptionInvalidPageId();
             else
                 this.id = id;
         }
@@ -35,7 +35,7 @@ public class Page {
         
         public void setTitle(String title) throws ExceptionInvalidPageTitle {
             if (title == null || title.isEmpty())
-                throw new ExceptionInvalidPageTitle("Invalid page title");
+                throw new ExceptionInvalidPageTitle();
             else
                 this.title = title;
         }
@@ -48,7 +48,7 @@ public class Page {
         
         public void setMenuName(String menuName) throws ExceptionInvalidPageMenuName {
             if (menuName == null || menuName.isEmpty())
-                throw new ExceptionInvalidPageMenuName("Invalid page menu-name");
+                throw new ExceptionInvalidPageMenuName();
             else
                 this.menuName = menuName;
         }
@@ -61,7 +61,7 @@ public class Page {
         
         public void setContent(String content) throws ExceptionInvalidPageContent {
             if (content == null || content.isEmpty())
-                throw new ExceptionInvalidPageContent("Invalid page content");
+                throw new ExceptionInvalidPageContent();
             else
                 this.content = content;
         }
@@ -74,7 +74,7 @@ public class Page {
         
         public void setSlug(String slug) throws ExceptionInvalidPageSlug {
             if (slug == null || slug.isEmpty())
-                throw new ExceptionInvalidPageSlug("Invalid page slug");
+                throw new ExceptionInvalidPageSlug();
             else
                 this.slug = slug;
         }
@@ -87,7 +87,7 @@ public class Page {
         
         public void setPriority(int priority) throws ExceptionInvalidPagePriority {
             if (priority < 0)
-                throw new ExceptionInvalidPagePriority("Invalid page priority");
+                throw new ExceptionInvalidPagePriority();
             else
                 this.priority = priority;
         }
@@ -100,7 +100,7 @@ public class Page {
         
         public void setEditedDate(LocalDateTime editedDate) throws ExceptionNullPageEditedDate {
             if (editedDate == null)
-                throw new ExceptionNullPageEditedDate("Page edited-date cannot be null");
+                throw new ExceptionNullPageEditedDate();
             else
                 this.editedDate = editedDate;
         }
@@ -113,7 +113,7 @@ public class Page {
         
         public void setEditedBy(String editedBy) throws ExceptionInvalidPageEditedBy {
             if (editedBy == null || editedBy.isEmpty())
-                throw new ExceptionInvalidPageEditedBy("Invalid page edited-by");
+                throw new ExceptionInvalidPageEditedBy();
             else
                 this.editedBy = editedBy;
         }

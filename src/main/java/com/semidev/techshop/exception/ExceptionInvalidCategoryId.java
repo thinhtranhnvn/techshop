@@ -3,8 +3,8 @@ package com.semidev.techshop.exception;
 
 public class ExceptionInvalidCategoryId extends Exception {
     
-    public ExceptionInvalidCategoryId(String message) {
-        super(message);
+    public ExceptionInvalidCategoryId() {
+        super("Invalid category id");
     }
     
 }

@@ -19,7 +19,7 @@ public class Category {
         
         public void setId(int id) throws ExceptionInvalidCategoryId {
             if (id < 1)
-                throw new ExceptionInvalidCategoryId("Invalid category id");
+                throw new ExceptionInvalidCategoryId();
             else
                 this.id = id;
         }
@@ -32,7 +32,7 @@ public class Category {
         
         public void setName(String name) throws ExceptionInvalidCategoryName {
             if (name == null || name.isEmpty())
-                throw new ExceptionInvalidCategoryName("Invalid category name");
+                throw new ExceptionInvalidCategoryName();
             else
                 this.name = name;
         }
@@ -45,7 +45,7 @@ public class Category {
         
         public void setSlug(String slug) throws ExceptionInvalidCategorySlug {
             if (slug == null || slug.isEmpty())
-                throw new ExceptionInvalidCategorySlug("Invalid category slug");
+                throw new ExceptionInvalidCategorySlug();
             else
                 this.slug = slug;
         }
@@ -58,7 +58,7 @@ public class Category {
         
         public void setEditedDate(LocalDateTime editedDate) throws ExceptionNullCategoryEditedDate {
             if (editedDate == null)
-                throw new ExceptionNullCategoryEditedDate("Category edited-date cannot be null");
+                throw new ExceptionNullCategoryEditedDate();
             else
                 this.editedDate = editedDate;
         }
@@ -71,7 +71,7 @@ public class Category {
         
         public void setEditedBy(String editedBy) throws ExceptionInvalidCategoryEditedBy {
             if (editedBy == null || editedBy.isEmpty())
-                throw new ExceptionInvalidCategoryEditedBy("Invalid category edited-by");
+                throw new ExceptionInvalidCategoryEditedBy();
             else
                 this.editedBy = editedBy;
         }

@@ -4,6 +4,7 @@ import com.semidev.techshop.exception.ExceptionInvalidImageURL;
 import com.semidev.techshop.exception.ExceptionInvalidProductId;
 import com.semidev.techshop.exception.ExceptionInvalidImageId;
 import com.semidev.techshop.model.entity.Image;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class ImageService {
     public static int selectLatestImageId() throws SQLException {
         try (var connection = Database.getConnection()) {
             var sql = "SELECT id "
-                    + "FROM product_image "
+                    + "FROM image "
                     + "ORDER BY id DESC "
                     + "LIMIT 1";
             var statement = connection.prepareStatement(sql);
@@ -33,7 +34,7 @@ public class ImageService {
             var id        = record.getId();
             var productId = record.getProductId();
             var imageURL  = record.getImageURL();
-            var sql = "INSERT INTO product_image "
+            var sql = "INSERT INTO image "
                     + "    (id, product_id, image_url) "
                     + "VALUES "
                     + "    (%d,         %d,      '%s')";
@@ -53,20 +54,20 @@ public class ImageService {
              , ExceptionInvalidImageId
     {
         try (var connection = Database.getConnection()) {
-            var productImageList = new ArrayList<Image>();
             var sql = "SELECT id, product_id, image_url "
-                    + "FROM product_image "
+                    + "FROM image "
                     + "WHERE product_id = %d";
             sql = String.format(sql, productId);
             var statement = connection.prepareStatement(sql);
             var result = statement.executeQuery();
+            var imageList = new ArrayList<Image>();
             while (result.next()) {
                 var id = result.getInt("id");
                 var imageURL = result.getString("image_url");
                 var record = Image.createInstance(id, productId, imageURL);
-                productImageList.add(record);
+                imageList.add(record);
             }
-            return productImageList;
+            return imageList;
         }
         catch (SQLException exc) {
             throw exc;
@@ -75,7 +76,7 @@ public class ImageService {
     
     public static void deleteFromImage(Image record) throws SQLException {
         try (var connection = Database.getConnection()) {
-            var sql = "DELETE FROM product_image "
+            var sql = "DELETE FROM image "
                     + "WHERE id = %d";
             sql = String.format(sql, record.getId());
             var statement = connection.prepareStatement(sql);

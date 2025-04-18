@@ -20,7 +20,7 @@ public class Brand {
 
         public void setId(int id) throws ExceptionInvalidBrandId {
             if (id < 1)
-                throw new ExceptionInvalidBrandId("Invalid brand id");
+                throw new ExceptionInvalidBrandId();
             else
                 this.id = id;
         }
@@ -33,7 +33,7 @@ public class Brand {
 
         public void setName(String name) throws ExceptionInvalidBrandName {
             if (name == null || name.isEmpty())
-                throw new ExceptionInvalidBrandName("Invalid brand name");
+                throw new ExceptionInvalidBrandName();
             else
                 this.name = name;
         }
@@ -46,7 +46,7 @@ public class Brand {
 
         public void setImageURL(String imageURL) throws ExceptionInvalidBrandImageURL {
             if (imageURL == null || imageURL.isEmpty())
-                throw new ExceptionInvalidBrandImageURL("Invalid brand image-URL");
+                throw new ExceptionInvalidBrandImageURL();
             else
                 this.imageURL = imageURL;
         }
@@ -59,7 +59,7 @@ public class Brand {
 
         public void setSlug(String slug) throws ExceptionInvalidBrandSlug {
             if (slug == null || slug.isEmpty())
-                throw new ExceptionInvalidBrandSlug("Invalid brand slug");
+                throw new ExceptionInvalidBrandSlug();
             else
                 this.slug = slug;
         }
@@ -72,7 +72,7 @@ public class Brand {
 
         public void setEditedDate(LocalDateTime editedDate) throws ExceptionInvalidBrandEditedDate {
             if (editedDate == null)
-                throw new ExceptionInvalidBrandEditedDate("Invalid brand edited-date");
+                throw new ExceptionInvalidBrandEditedDate();
             else
                 this.editedDate = editedDate;
         }
@@ -85,7 +85,7 @@ public class Brand {
 
         public void setEditedBy(String editedBy) throws ExceptionInvalidBrandEditedBy {
             if (editedBy == null || editedBy.isEmpty())
-                throw new ExceptionInvalidBrandEditedBy("Invalid brand edited-by");
+                throw new ExceptionInvalidBrandEditedBy();
             else
                 this.editedBy = editedBy;
         }

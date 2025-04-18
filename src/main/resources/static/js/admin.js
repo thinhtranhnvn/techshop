@@ -29,6 +29,12 @@ $(document).ready(function() {
        if (bool) window.location = this.href;
    });
    
+   $(".btn-delete-slide").on("click", function(event) {
+       event.preventDefault();
+       var bool = window.confirm("Do you really want to delete the slide?");
+       if (bool) window.location = this.href;
+   });
+   
    $(".btn-more-images").on("click", function(event) {
        var $input = $('<input type="text" class="form-control mt-2" name="image-url" />');
        $input.insertBefore(this);

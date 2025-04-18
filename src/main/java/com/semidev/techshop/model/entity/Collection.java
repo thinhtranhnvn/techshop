@@ -20,7 +20,7 @@ public class Collection {
         
         public void setId(int id) throws ExceptionInvalidCollectionId {
             if (id < 1)
-                throw new ExceptionInvalidCollectionId("Invalid collection id");
+                throw new ExceptionInvalidCollectionId();
             else
                 this.id = id;
         }
@@ -33,7 +33,7 @@ public class Collection {
         
         public void setName(String name) throws ExceptionInvalidCollectionName {
             if (name == null || name.isEmpty())
-                throw new ExceptionInvalidCollectionName("Invalid collection name");
+                throw new ExceptionInvalidCollectionName();
             else
                 this.name = name;
         }
@@ -46,7 +46,7 @@ public class Collection {
         
         public void setSlug(String slug) throws ExceptionInvalidCollectionSlug {
             if (slug == null || slug.isEmpty())
-                throw new ExceptionInvalidCollectionSlug("Invalid collection slug");
+                throw new ExceptionInvalidCollectionSlug();
             else
                 this.slug = slug;
         }
@@ -59,7 +59,7 @@ public class Collection {
         
         public void setPriority(int priority) throws ExceptionInvalidCollectionPriority {
             if (priority < 0)
-                throw new ExceptionInvalidCollectionPriority("Invalid collection priority");
+                throw new ExceptionInvalidCollectionPriority();
             else
                 this.priority = priority;
         }
@@ -72,7 +72,7 @@ public class Collection {
         
         public void setEditedDate(LocalDateTime editedDate) throws ExceptionNullCollectionEditedDate {
             if (editedDate == null)
-                throw new ExceptionNullCollectionEditedDate("Collection edited-date cannot be null");
+                throw new ExceptionNullCollectionEditedDate();
             else
                 this.editedDate = editedDate;
         }
@@ -85,7 +85,7 @@ public class Collection {
         
         public void setEditedBy(String editedBy) throws ExceptionInvalidCollectionEditedBy {
             if (editedBy == null || editedBy.isEmpty())
-                throw new ExceptionInvalidCollectionEditedBy("Invalid collection edited-by");
+                throw new ExceptionInvalidCollectionEditedBy();
             else
                 this.editedBy = editedBy;
         }

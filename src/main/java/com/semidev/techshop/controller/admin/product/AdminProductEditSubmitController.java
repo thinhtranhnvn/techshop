@@ -1,6 +1,11 @@
 package com.semidev.techshop.controller.admin.product;
 
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedBy;
+import com.semidev.techshop.exception.ExceptionInvalidBrandEditedDate;
 import com.semidev.techshop.exception.ExceptionInvalidBrandId;
+import com.semidev.techshop.exception.ExceptionInvalidBrandImageURL;
+import com.semidev.techshop.exception.ExceptionInvalidBrandName;
+import com.semidev.techshop.exception.ExceptionInvalidBrandSlug;
 import com.semidev.techshop.exception.ExceptionInvalidImageURL;
 import com.semidev.techshop.exception.ExceptionInvalidProductDescription;
 import com.semidev.techshop.exception.ExceptionInvalidProductDiscount;
@@ -15,6 +20,7 @@ import com.semidev.techshop.exception.ExceptionInvalidProductSpecification;
 import com.semidev.techshop.exception.ExceptionNullProductPromotion;
 import com.semidev.techshop.model.entity.Product;
 import com.semidev.techshop.model.entity.Image;
+import com.semidev.techshop.model.service.BrandService;
 import com.semidev.techshop.model.service.ImageService;
 import com.semidev.techshop.model.service.ProductService;
 
@@ -64,6 +70,10 @@ public class AdminProductEditSubmitController {
                 session.setAttribute("submittedDescription", description);
                 session.setAttribute("submittedSpecification", specification);
                 session.setAttribute("submittedSlug", slug);
+                var brandList = BrandService.selectAllBrandOrderByNameAsc();
+                session.setAttribute("brandList", brandList);
+                var brand = BrandService.selectBrandById(brandId);
+                session.setAttribute("brand", brand);
                 var matchedSlugProduct = ProductService.selectProductBySlug(slug);
                 if (matchedSlugProduct == null || matchedSlugProduct.getId() == productId) {
                     var editedDate = LocalDateTime.now();
@@ -95,6 +105,8 @@ public class AdminProductEditSubmitController {
                     session.setAttribute("submittedDescription", null);
                     session.setAttribute("submittedSpecification", null);
                     session.setAttribute("submittedSlug", null);
+                    session.setAttribute("brandList", null);
+                    session.setAttribute("brand", null);
                     return "redirect:" + "/admin/product";
                 }
                 else {
@@ -152,6 +164,26 @@ public class AdminProductEditSubmitController {
             }
             catch (ExceptionNullProductPromotion exc) {
                 session.setAttribute("editError", "The product promotion cannot be null");
+                return "redirect:" + "/admin/product/edit?id=" + productId;
+            }
+            catch (ExceptionInvalidBrandName exc) {
+                session.setAttribute("editError", "Invalid brand name");
+                return "redirect:" + "/admin/product/edit?id=" + productId;
+            }
+            catch (ExceptionInvalidBrandImageURL exc) {
+                session.setAttribute("editError", "Invalid brand image URL");
+                return "redirect:" + "/admin/product/edit?id=" + productId;
+            }
+            catch (ExceptionInvalidBrandSlug exc) {
+                session.setAttribute("editError", "Invalid brand slug");
+                return "redirect:" + "/admin/product/edit?id=" + productId;
+            }
+            catch (ExceptionInvalidBrandEditedDate exc) {
+                session.setAttribute("editError", "Invalid brand edited-date");
+                return "redirect:" + "/admin/product/edit?id=" + productId;
+            }
+            catch (ExceptionInvalidBrandEditedBy exc) {
+                session.setAttribute("editError", "Invalid brand edited-by");
                 return "redirect:" + "/admin/product/edit?id=" + productId;
             }
             catch (SQLException exc) {

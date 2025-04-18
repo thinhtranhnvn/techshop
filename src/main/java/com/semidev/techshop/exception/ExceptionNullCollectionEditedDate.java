@@ -3,8 +3,8 @@ package com.semidev.techshop.exception;
 
 public class ExceptionNullCollectionEditedDate extends Exception {
     
-    public ExceptionNullCollectionEditedDate(String message) {
-        super(message);
+    public ExceptionNullCollectionEditedDate() {
+        super("Collection edited-date cannot be null");
     }
     
 }

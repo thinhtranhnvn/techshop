@@ -118,3 +118,15 @@ create table page (
     edited_date datetime    not null,
     edited_by   varchar(32) not null
 );
+
+--
+
+create table slide (
+    id          int         not null auto_increment primary key,
+    image_url   mediumtext  not null,
+    caption     mediumtext  not null,
+    href        mediumtext  not null,
+    priority    int         not null,
+    edited_date datetime    not null,
+    edited_by   varchar(32) not null
+);

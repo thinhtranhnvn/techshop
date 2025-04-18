@@ -36,7 +36,7 @@ public class ProductService {
              , ExceptionNullProductPromotion
     {
         try (var connection = Database.getConnection()) {
-            var sql = "SELECT id, brand_id, name, price, discount, promotion, description, specification, edited_date, edited_by, slug "
+            var sql = "SELECT id, brand_id, name, price, discount, promotion, description, specification, slug, edited_date, edited_by "
                     + "FROM product "
                     + "WHERE slug = '%s'";
             sql = String.format(sql, slug);
@@ -86,7 +86,7 @@ public class ProductService {
     
     public static void insertIntoProduct(Product record) throws SQLException {
         try (var connection = Database.getConnection()) {
-            var id = record.getId();
+            var id            = record.getId();
             var brandId       = record.getBrandId();
             var name          = record.getName();
             var price         = record.getPrice();
@@ -95,13 +95,13 @@ public class ProductService {
             var description   = record.getDescription();
             var specification = record.getSpecification();
             var slug          = record.getSlug();
-            var editedDate    = record.getEditedDate();
+            var editedDate    = record.getEditedDate().toString();
             var editedBy      = record.getEditedBy();
             var sql = "INSERT INTO product "
                     + "    (id, brand_id, name, price, discount, promotion, description, specification, slug, edited_date, edited_by) "
                     + "VALUES "
                     + "    (%d,       %d, '%s',    %f,       %f,      '%s',        '%s',          '%s', '%s',        '%s',      '%s')";
-            sql = String.format(sql, id, brandId, name, price, discount, promotion, description, specification, slug, editedDate.toString(), editedBy);
+            sql = String.format(sql, id, brandId, name, price, discount, promotion, description, specification, slug, editedDate, editedBy);
             var statement = connection.prepareStatement(sql);
             statement.executeUpdate();
         }

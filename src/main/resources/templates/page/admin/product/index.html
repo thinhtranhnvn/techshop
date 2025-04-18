@@ -25,6 +25,7 @@
             </div>
 
             <div class="mb-2 text-success" th:if="${addInfo != null}" th:text="${addInfo}" />
+            <div class="mb-2 text-success" th:if="${editInfo != null}" th:text="${editInfo}" />
             <div class="mb-2 text-danger" th:if="${indexError != null}" th:text="${indexError}" />
             <div class="mb-2 text-danger" th:if="${deleteError != null}" th:text="${deleteError}" />
 

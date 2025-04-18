@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 
 public class BrandService {
-
+    
     public static void insertIntoBrand(Brand record) throws SQLException {
         try (var connection = Database.getConnection()) {
             var id         = record.getId();
@@ -36,7 +36,7 @@ public class BrandService {
             throw exc;
         }
     }
-
+    
     public static int selectLatestBrandId() throws SQLException {
         try (var connection = Database.getConnection()) {
             var sql = "SELECT id "
@@ -176,7 +176,7 @@ public class BrandService {
             throw exc;
         }
     }
-
+    
     public static void updateBrand(Brand record) throws SQLException {
         try (var connection = Database.getConnection()) {
             var id         = record.getId();

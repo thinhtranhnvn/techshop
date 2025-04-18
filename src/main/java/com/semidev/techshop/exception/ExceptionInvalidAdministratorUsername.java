@@ -3,8 +3,8 @@ package com.semidev.techshop.exception;
 
 public class ExceptionInvalidAdministratorUsername extends Exception {
     
-    public ExceptionInvalidAdministratorUsername(String message) {
-        super(message);
+    public ExceptionInvalidAdministratorUsername() {
+        super("Invalid administrator username");
     }
     
 }

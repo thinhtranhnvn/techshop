@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <form class="py-5" action="/admin/slide/edit-submit" method="post">
+        <div class="container mw-810px">
+            <h1 class="mb-5"> Edit Slide </h1>
+
+            <div class="mb-3 text-danger" th:if="${editError != null}" th:text="${editError}" />
+            
+            <input type="hidden" name="id" th:value="${slide.getId()}" />
+            
+            <div class="mb-3 mw-360px">
+                <label for="image-url" class="form-label"> Image URL </label>
+                <input type="text" class="form-control" name="image-url" id="image-url" th:value="${slide.getImageURL()}" required />
+            </div>
+            
+            <div class="mb-3 mw-360px">
+                <label for="caption" class="form-label"> Caption </label>
+                <input type="text" class="form-control" name="caption" id="caption" th:value="${slide.getCaption()}" required />
+            </div>
+            
+            <div class="mb-3 mw-360px">
+                <label for="href" class="form-label"> Reference Link </label>
+                <input type="text" class="form-control" name="href" id="href" th:value="${slide.getHref()}" required />
+            </div>
+            
+            <div class="mb-3 mw-360px">
+                <label for="priority" class="form-label"> Priority </label>
+                <input type="number" step="1" min="0" class="form-control" name="priority" id="priority" th:value="${slide.getPriority()}" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary"> Submit </button>
+            <button type="reset" class="btn btn-secondary"> Reset </button>
+        </div>
+    </form>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

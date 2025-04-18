@@ -60,12 +60,12 @@
             
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-outline-secondary" th:if="${previousPage != null}" th:href="@{|/admin/category/view?category-id=${category.getId()}&page=${previousPage}|}">
+                    <a class="btn btn-outline-secondary" th:if="${previousPage != null}" th:href="@{|/admin/category/view?id=${category.getId()}&page=${previousPage}|}">
                         <i class="fas fa-arrow-left me-1"></i> Previous
                     </a>
                 </div>
                 <div class="col text-end">
-                    <a class="btn btn-outline-secondary" th:if="${nextPage != null}" th:href="@{|/admin/category/view?category-id=${category.getId()}&page=${nextPage}|}">
+                    <a class="btn btn-outline-secondary" th:if="${nextPage != null}" th:href="@{|/admin/category/view?id=${category.getId()}&page=${nextPage}|}">
                         Next <i class="fas fa-arrow-right ms-1"></i>
                     </a>
                 </div>

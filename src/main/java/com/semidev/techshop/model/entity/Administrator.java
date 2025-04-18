@@ -15,7 +15,7 @@ public class Administrator {
 
         public void setId(int id) throws ExceptionInvalidAdministratorId {
             if (id < 1)
-                throw new ExceptionInvalidAdministratorId("Invalid admin id");
+                throw new ExceptionInvalidAdministratorId();
             else
                 this.id = id;
         }
@@ -28,7 +28,7 @@ public class Administrator {
 
         public void setUsername(String username) throws ExceptionInvalidAdministratorUsername {
             if (username == null || username.isEmpty())
-                throw new ExceptionInvalidAdministratorUsername("Invalid administrator username");
+                throw new ExceptionInvalidAdministratorUsername();
             else
                 this.username = username;
         }
@@ -41,7 +41,7 @@ public class Administrator {
 
         public void setPassword(String password) throws ExceptionInvalidAdministratorPassword {
             if (password == null || password.isEmpty())
-                throw new ExceptionInvalidAdministratorPassword("Invalid administrator password");
+                throw new ExceptionInvalidAdministratorPassword();
             else
                 this.password = password;
         }

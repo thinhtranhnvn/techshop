@@ -15,7 +15,7 @@ public class Image {
         
         public void setId(int id) throws ExceptionInvalidImageId {
             if (id < 1)
-                throw new ExceptionInvalidImageId("Invalid product image id");
+                throw new ExceptionInvalidImageId();
             else
                 this.id = id;
         }
@@ -28,7 +28,7 @@ public class Image {
         
         public void setProductId(int productId) throws ExceptionInvalidProductId {
             if (productId < 1)
-                throw new ExceptionInvalidProductId("Invalid product id");
+                throw new ExceptionInvalidProductId();
             else
                 this.productId = productId;
         }
@@ -41,7 +41,7 @@ public class Image {
         
         public void setImageURL(String imageURL) throws ExceptionInvalidImageURL {
             if (imageURL == null || imageURL.isEmpty())
-                throw new ExceptionInvalidImageURL("Invalid image URL");
+                throw new ExceptionInvalidImageURL();
             else
                 this.imageURL = imageURL;
         }
