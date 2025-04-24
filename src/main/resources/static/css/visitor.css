@@ -23,8 +23,8 @@
     background: #0B5ED7;
 }
 
-.mh-450px {
-    max-height: 450px;
+.mh-480px {
+    max-height: 480px;
 }
 
 .of-hidden {
@@ -43,4 +43,8 @@
 
 .bg-whitesmoke {
     background-color: whitesmoke;
+}
+
+.top-390px {
+    top: 390px;
 }

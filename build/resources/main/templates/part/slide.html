@@ -1,10 +1,16 @@
-<div id="carouselExampleDark" class="carousel carousel-dark slide mh-450px of-hidden">
+<div id="carouselExampleDark" class="carousel carousel-dark slide mh-480px of-hidden">
   <div class="carousel-inner">
     <a th:href="${slideList.get(0).getHref()}" class="carousel-item active" data-bs-interval="10000">
         <img th:src="${slideList.get(0).getImageURL()}" class="d-block w-100" />
+        <div class="carousel-caption d-none d-md-block position-absolute top-390px">
+            <h2 class="text-white" th:text="${slideList.get(0).getCaption()}" />
+        </div>
     </a>
     <a th:href="${slide.getHref()}" th:each="slide : ${slideList}" class="carousel-item" data-bs-interval="10000">
-      <img th:src="${slide.getImageURL()}" class="d-block w-100" />
+        <img th:src="${slide.getImageURL()}" class="d-block w-100" />
+        <div class="carousel-caption d-none d-md-block position-absolute top-390px">
+            <h2 class="text-white" th:text="${slide.getCaption()}" />
+        </div>
     </a>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
