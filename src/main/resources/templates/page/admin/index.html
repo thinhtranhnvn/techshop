@@ -1,10 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title> Admin Index </title>
-    </head>
-    <body>
-        <h1> Admin Index </h1>
-    </body>
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Dashboard </h1>
+            
+            <div class="mb-2 text-danger" th:if="${indexError != null}" th:text="${indexError}" />
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th> Brands </th>
+                        <td th:text="${brandCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Products </th>
+                        <td th:text="${productCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Categories </th>
+                        <td th:text="${categoryCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Collections </th>
+                        <td th:text="${collectionCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Pages </th>
+                        <td th:text="${pageCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Slides </th>
+                        <td th:text="${slideCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Visitors </th>
+                        <td th:text="${visitorCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Purchases </th>
+                        <td th:text="${purchaseCounter}" />
+                        <td class="text-end">
+                            <a class="btn btn-light bg-whitesmoke" href="/admin/brand"> See details </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
 </html>

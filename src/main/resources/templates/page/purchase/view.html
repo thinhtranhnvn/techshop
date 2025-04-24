@@ -10,13 +10,13 @@
         <h1 class="mb-5"> Purchase Detail </h1>
         
         <div class="mb-1">
-            <span class="btn btn-secondary" th:text="@{|Placed at ${purchase.getPlacedDate().toString().replace('T', ' ')}|}" />
+            <span class="btn btn-light bg-whitesmoke" th:text="@{|Placed at ${purchase.getPlacedDate().toString().replace('T', ' ')}|}" />
         </div>
         
         <div class="mb-3">
-            <span th:if="${purchase.getStatus() == 0}" class="btn btn-secondary" th:text="canceled" />
-            <span th:if="${purchase.getStatus() == 1}" class="btn btn-secondary" th:text="processing" />
-            <span th:if="${purchase.getStatus() == 2}" class="btn btn-secondary" th:text="processed" />
+            <span th:if="${purchase.getStatus() == 0}" class="btn btn-light bg-whitesmoke" th:text="canceled" />
+            <span th:if="${purchase.getStatus() == 1}" class="btn btn-light bg-whitesmoke" th:text="processing" />
+            <span th:if="${purchase.getStatus() == 2}" class="btn btn-light bg-whitesmoke" th:text="processed" />
         </div>
         
         <table class="table">
