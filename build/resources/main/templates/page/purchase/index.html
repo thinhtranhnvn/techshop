@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/navbar.html"></div>
+    
+    <div class="container my-5">
+        <h1 class="mb-5"> Purchase Index </h1>
+        
+        <table class="table">
+            <thead>
+                <th scope="col"> Id </th>
+                <th scope="col"> Placed date </th>
+                <th scope="col"> Status </th>
+                <th scope="col"> Action </th>
+            </thead>
+            <tbody>
+                <tr th:each="purchase : ${purchaseList}">
+                    <td th:text="${purchase.getId()}" />
+                    <td th:text="${purchase.getPlacedDate().toString().replace('T', ' ')}" />
+                    
+                    <td class="text-danger" th:if="${purchase.getStatus() == 0}" th:text="canceled" />
+                    <td th:if="${purchase.getStatus() == 1}" th:text="processing" />
+                    <td class="text-success" th:if="${purchase.getStatus() == 2}" th:text="processed" />
+                    
+                    <td>
+                        <a class="btn btn-secondary" th:href="@{|/purchase/view?id=${purchase.getId()}|}">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div th:replace="part/footer.html"></div>
+
+    <div th:replace="part/script.html"></div>
+</body>
+</html>

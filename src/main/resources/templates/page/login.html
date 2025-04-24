@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/navbar.html"></div>
+    
+    <div class="container my-5">
+        <h1 class="mb-5"> Login </h1>
+        
+        <form action="/login-submit" method="post">
+            <div class="mb-3 text-danger" th:if="${loginError != null}" th:text="|${loginError}|" />
+
+            <div class="mb-3 mw-360px">
+                <label for="username" class="form-label"> Username </label>
+                <input type="text" class="form-control" pattern="\w{1,32}" name="username" id="username" th:value="${submittedUsername != null} ? ${submittedUsername} : ''" autofocus required />
+            </div>
+            <div class="mb-3 mw-360px">
+                <label for="password" class="form-label"> Password </label>
+                <input type="password" class="form-control" pattern="[\w!@#$%^&*]{1,32}" name="password" id="password" th:value="${submittedPassword != null} ? ${submittedPassword} : ''" required />
+            </div>
+            
+            <p class="mb-4"> If you have not registered yet, <a href="/signup">sign up here</a>. </p>
+
+            <button type="submit" class="btn btn-primary" name="submit" value="submit"> Log in </button>
+            <button type="reset" class="btn btn-secondary" name="reset"> Reset </button>
+        </form>
+    </div>
+    
+    <div th:replace="part/footer.html"></div>
+
+    <div th:replace="part/script.html"></div>
+</body>
+</html>

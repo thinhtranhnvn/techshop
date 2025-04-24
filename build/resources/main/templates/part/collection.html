@@ -1,0 +1,13 @@
+<div th:each="joinedCollection : ${joinedCollectionList}" class="collection border-bottom">
+    <div class="container">
+        <h2 class="my-5" th:text="${joinedCollection.collection.getName()}" />
+    
+        <div class="row mb-5">
+            <a th:href="@{|/product/view?slug=${joinedProduct.product.getSlug()}|}" th:each="joinedProduct : ${joinedCollection.joinedProductList}" class="col-lg-3 col-md-6 text-decoration-none">
+                <img class="img-fluid" th:src="${joinedProduct.imageList.get(0).getImageURL()}" />
+                <h6 th:text="${joinedProduct.product.getName()}" />
+                <p class="text-danger" th:text="@{|${#numbers.formatDecimal(joinedProduct.product.getPrice() * (100 - joinedProduct.product.getDiscount()) / 100, 1, 2)} $|}" />
+            </a>
+        </div>
+    </div>
+</div>

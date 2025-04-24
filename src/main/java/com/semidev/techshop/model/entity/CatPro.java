@@ -33,13 +33,13 @@ public class CatPro {
         }
     
     public static CatPro createInstance(
-        int collectionId,
+        int categoryId,
         int productId
     ) throws ExceptionInvalidCategoryId
            , ExceptionInvalidProductId
     {
         var instance = new CatPro();
-        instance.setCategoryId(collectionId);
+        instance.setCategoryId(categoryId);
         instance.setProductId(productId);
         return instance;
     }

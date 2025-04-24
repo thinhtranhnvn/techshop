@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/navbar.html"></div>
+    
+    <div class="container mb-5">
+        <h1 class="my-5" th:text="${joinedProduct.product.getName()}" />
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div id="carouselExampleDark" class="carousel carousel-dark slide">
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="10000">
+                    <img th:src="${joinedProduct.imageList.get(0).getImageURL()}" class="d-block w-100" />
+                  </div>
+                  <div th:each="image : ${joinedProduct.imageList}" class="carousel-item" data-bs-interval="10000">
+                    <img th:src="${image.getImageURL()}" class="d-block w-100" />
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+                <p> <b>Price:</b> <span th:text="@{|${#numbers.formatDecimal(joinedProduct.product.getPrice() * (100 - joinedProduct.product.getDiscount()) / 100, 1, 2)} $|}" /> </p>
+                <p> <b>Promotion:</b> <span th:utext="${joinedProduct.product.getPromotion()}" /> </p>
+                <p> <b>Specification:</b>  <span th:utext="${joinedProduct.product.getSpecification()}" /> </p>
+                <a class="btn btn-primary" th:href="@{|/cart/add?product-id=${joinedProduct.product.getId()}|}"> <i class="fas fa-cart-plus"></i> Buy now </a>
+            </div>
+        </div>
+        
+        <div>
+            <h2 class="my-5"> Description </h2>
+            
+            <div th:utext="${joinedProduct.product.getDescription()}" />
+        </div>
+    </div>
+    
+    <div th:replace="part/footer.html"></div>
+
+    <div th:replace="part/script.html"></div>
+</body>
+</html>

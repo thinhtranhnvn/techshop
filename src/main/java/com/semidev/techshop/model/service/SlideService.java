@@ -248,4 +248,40 @@ public class SlideService {
         }
     }
     
+    public static ArrayList<Slide> selectAllSlideOrderByPriorityDesc()
+        throws SQLException
+           , ExceptionInvalidSlideId
+           , ExceptionInvalidSlideImageURL
+           , ExceptionInvalidSlideCaption
+           , ExceptionNullSlideHref
+           , ExceptionInvalidSlidePriority
+           , ExceptionNullSlideEditedDate
+           , ExceptionInvalidSlideEditedBy
+    {
+        try (var connection = Database.getConnection()) {
+            var sql = "SELECT id, image_url, caption, href, priority, edited_date, edited_by "
+                    + "FROM slide "
+                    + "ORDER BY priority DESC";
+            var statement = connection.prepareStatement(sql);
+            var result = statement.executeQuery();
+            var slideList = new ArrayList<Slide>();
+            while (result.next()) {
+                var id = result.getInt("id");
+                var imageURL = result.getString("image_url");
+                var caption = result.getString("caption");
+                var href = result.getString("href");
+                var priority = result.getInt("priority");
+                var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
+                var editedBy   = result.getString("edited_by");
+                var record = Slide.createInstance(id, imageURL, caption, href, priority, editedDate, editedBy);
+                slideList.add(record);
+            }
+            return slideList;
+        }
+        catch (SQLException exc) {
+            throw exc;
+        }
+    }
+    
 }

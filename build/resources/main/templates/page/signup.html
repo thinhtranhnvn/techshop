@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/navbar.html"></div>
+    
+    <div class="container my-5">    
+        <h1 class="mb-5"> Sign Up </h1>
+        
+        <form action="/signup-submit" method="post">
+            <div class="mb-3 text-danger" th:if="${signupError != null}" th:text="${signupError}" />
+
+            <div class="mb-3 mw-360px">
+                <label for="fullname" class="form-label"> Full-name </label>
+                <input type="text" class="form-control" pattern=".{1,32}" name="fullname" id="fullname" th:value="${submittedFullname != null} ? ${submittedFullname} : ''" autofocus required />
+            </div>
+
+            <div class="mb-3 mw-360px">
+                <label for="username" class="form-label"> Username </label>
+                <input type="text" class="form-control" pattern="\w{1,32}" name="username" id="username" th:value="${submittedUsername != null} ? ${submittedUsername} : ''" required />
+            </div>
+
+            <div class="mb-3 mw-360px">
+                <label for="password" class="form-label"> Password </label>
+                <input type="password" class="form-control" pattern="[\w!@#$%^&*]{1,32}" name="password" id="password" th:value="${submittedPassword != null} ? ${submittedPassword} : ''" required />
+            </div>
+            
+            <div class="mb-3 mw-360px">
+                <label for="phone" class="form-label"> Email </label>
+                <input type="text" class="form-control" pattern="[0123456789]{10,16}" name="phone" id="phone" th:value="${submittedPhone != null} ? ${submittedPhone} : ''" required />
+            </div>
+
+            <div class="mb-3 mw-360px">
+                <label for="email" class="form-label"> Email </label>
+                <input type="email" class="form-control" name="email" id="email" th:value="${submittedEmail != null} ? ${submittedEmail} : ''" required />
+            </div>
+
+            <div class="mb-4 mw-360px">
+                <label for="address" class="form-label"> Address </label>
+                <input type="text" class="form-control" name="address" id="address" th:value="${submittedAddress != null} ? ${submittedAddress} : ''" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary" name="submit" value="submit"> Sign Up </button>
+            <button type="reset" class="btn btn-secondary" name="reset"> Reset </button>
+        </form>
+    </div>
+    
+    <div th:replace="part/footer.html"></div>
+
+    <div th:replace="part/script.html"></div>
+</body>
+</html>

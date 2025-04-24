@@ -1,0 +1,46 @@
+.logo{
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 0;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+}
+
+.cart {
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.bg-primary-hover {
+    background: #0B5ED7;
+}
+
+.mh-450px {
+    max-height: 450px;
+}
+
+.of-hidden {
+    overflow: hidden;
+}
+
+.collection h6,
+.collection p {
+    text-decoration: none !important;
+    color: black;
+}
+
+.mw-360px {
+    max-width: 360px;
+}
+
+.bg-whitesmoke {
+    background-color: whitesmoke;
+}

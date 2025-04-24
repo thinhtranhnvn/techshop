@@ -270,5 +270,39 @@ public class CollectionService {
             throw exc;
         }
     }
+    
+    public static ArrayList<Collection> selectAllCollectionOrderByPriorityDesc()
+        throws SQLException
+           , ExceptionInvalidCollectionId
+           , ExceptionInvalidCollectionName
+           , ExceptionInvalidCollectionSlug
+           , ExceptionInvalidCollectionPriority
+           , ExceptionNullCollectionEditedDate
+           , ExceptionInvalidCollectionEditedBy
+    {
+        try (var connection = Database.getConnection()) {
+            var sql = "SELECT id, name, slug, priority, edited_date, edited_by "
+                    + "FROM collection "
+                    + "ORDER BY priority DESC ";
+            var statement = connection.prepareStatement(sql);
+            var result = statement.executeQuery();
+            var collectionList = new ArrayList<Collection>();
+            while (result.next()) {
+                var id         = result.getInt("id");
+                var name       = result.getString("name");
+                var slug       = result.getString("slug");
+                var priority   = result.getInt("priority");
+                var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
+                var editedBy   = result.getString("edited_by");
+                var record = Collection.createInstance(id, name, slug, priority, editedDate, editedBy);
+                collectionList.add(record);
+            }
+            return collectionList;
+        }
+        catch (SQLException exc) {
+            throw exc;
+        }
+    }
             
 }

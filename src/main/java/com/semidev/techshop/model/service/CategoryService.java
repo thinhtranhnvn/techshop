@@ -260,4 +260,35 @@ public class CategoryService {
         }
     }
     
+    public static ArrayList<Category> selectAllCategoryOrderByNameAsc() throws SQLException
+           , ExceptionInvalidCategoryId
+           , ExceptionInvalidCategoryName
+           , ExceptionInvalidCategorySlug
+           , ExceptionNullCategoryEditedDate
+           , ExceptionInvalidCategoryEditedBy
+    {
+        try (var connection = Database.getConnection()) {
+            var sql = "SELECT id, name, slug, edited_date, edited_by "
+                    + "FROM category "
+                    + "ORDER BY name ASC";
+            var statement = connection.prepareStatement(sql);
+            var result = statement.executeQuery();
+            var categoryList = new ArrayList<Category>();
+            while (result.next()) {
+                var id         = result.getInt("id");
+                var name       = result.getString("name");
+                var slug       = result.getString("slug");
+                var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
+                var editedBy   = result.getString("edited_by");
+                var record = Category.createInstance(id, name, slug, editedDate, editedBy);
+                categoryList.add(record);
+            }
+            return categoryList;
+        }
+        catch (SQLException exc) {
+            throw exc;
+        }
+    }
+    
 }

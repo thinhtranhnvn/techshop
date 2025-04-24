@@ -1,0 +1,51 @@
+ <!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Search Visitor </h1>
+
+            <div class="row">
+                <div class="col-xs-4 col-md-6 col-lg-8 mb-3">
+                </div>
+                <div class="col-xs-8 col-md-6 col-lg-4 mb-3">
+                    <form class="input-group" action="/admin/visitor/search" method="get">
+                        <input type="text" class="form-control" name="id" placeholder="Search for visitor's id" aria-label="Visitor's id" aria-describedby="search" th:value="${id}" />
+                        <button class="btn btn-secondary" type="submit" id="search"> Search </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="mb-2 text-danger" th:if="${searchError != null}" th:text="${searchError}" />
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> Id </th>
+                        <th scope="col"> Full-name </th>
+                        <th scope="col"> Phone </th>
+                        <th scope="col"> Email </th>
+                        <th scope="col"> Address </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${visitor != null}">
+                        <td th:text="${visitor.getId()}" />
+                        <td th:text="${visitor.getFullname()}" />
+                        <td th:text="${visitor.getPhone()}" />
+                        <td th:text="${visitor.getEmail()}" />
+                        <td th:text="${visitor.getAddress()}" />
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

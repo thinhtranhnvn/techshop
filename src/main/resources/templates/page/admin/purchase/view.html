@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Purchase Detail </h1>
+            
+            <div class="mb-2 text-danger" th:if="${viewError != null}" th:text="${viewError}" />
+            <div class="mb-2 text-danger" th:if="${editError != null}" th:text="${editError}" />
+            <div class="mb-2 text-success" th:if="${editInfo != null}" th:text="${editInfo}" />
+
+            <div class="mb-1">
+                <span class="btn btn-secondary" th:text="@{|Placed by ${joinedPurchase.visitor.getFullname()}|}" />
+            </div>
+            <div class="mb-3">
+                <span class="btn btn-secondary" th:text="@{|Placed at ${joinedPurchase.purchase.getPlacedDate().toString().replace('T', ' ')}|}" />
+            </div>
+            
+            <table class="table mb-3">
+                <thead>
+                    <tr>
+                        <th scope="col"> Product </th>
+                        <th scope="col"> Price </th>
+                        <th scope="col"> Discount </th>
+                        <th scope="col"> Promotion </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="joinedPurPro : ${joinedPurProList}">
+                        <td th:text="${joinedPurPro.product.getName()}" />
+                        <td th:text="${joinedPurPro.product.getPrice()}" />
+                        <td th:text="${joinedPurPro.product.getDiscount()}" />
+                        <td th:utext="${joinedPurPro.product.getPromotion()}" />
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div th:if="${joinedPurchase.purchase.getStatus() == 0}">
+                <span class="btn btn-danger"> canceled </span>
+            </div>
+
+            <form th:if="${joinedPurchase.purchase.getStatus() == 1}" method="get" action="/admin/purchase/edit-submit">
+                <input type="hidden" name="id" th:value="${joinedPurchase.purchase.getId()}" />
+                <select class="form-select mw-360px mb-2" name="status">
+                    <option value="0"> canceled </option>
+                    <option value="1" selected> processing </option>
+                    <option value="2"> processed </option>
+                </select>
+                    
+                <button class="btn btn-primary" type="submit"> Update </button>
+            </form>
+            
+            <div th:if="${joinedPurchase.purchase.getStatus() == 2}">
+                <span class="btn btn-success"> processed </span>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

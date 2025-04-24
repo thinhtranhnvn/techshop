@@ -912,4 +912,50 @@ public class ProductService {
         }
     }
     
+    public static ArrayList<Product> selectProductByNameLikeOrderByNameAsc(String keywords)
+        throws SQLException
+             , ExceptionInvalidProductId
+             , ExceptionInvalidBrandId
+             , ExceptionInvalidProductName
+             , ExceptionInvalidProductPrice
+             , ExceptionInvalidProductDescription
+             , ExceptionInvalidProductSpecification
+             , ExceptionInvalidProductSlug
+             , ExceptionInvalidProductEditedDate
+             , ExceptionInvalidProductEditedBy
+             , ExceptionInvalidProductDiscount
+             , ExceptionNullProductPromotion
+    {
+        try (var connection = Database.getConnection()) {
+            var sql = "SELECT id, brand_id, name, price, discount, promotion, description, specification, slug, edited_date, edited_by "
+                    + "FROM product "
+                    + "WHERE name LIKE '%s' "
+                    + "ORDER BY name ASC";
+            sql = String.format(sql, "%"+keywords+"%");
+            var statement = connection.prepareStatement(sql);
+            var result = statement.executeQuery();
+            var productList = new ArrayList<Product>();
+            while (result.next()) {
+                var id            = result.getInt("id");
+                var brandId       = result.getInt("brand_id");
+                var name          = result.getString("name");
+                var price         = result.getFloat("price");
+                var discount      = result.getFloat("discount");
+                var promotion     = result.getString("promotion");
+                var description   = result.getString("description");
+                var specification = result.getString("specification");
+                var slug          = result.getString("slug");
+                var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                var editedDate = LocalDateTime.parse(result.getString("edited_date"), formatter);
+                var editedBy      = result.getString("edited_by");
+                var record = Product.createInstance(id, brandId, name, price, discount, promotion, description, specification, slug, editedDate, editedBy);
+                productList.add(record);
+            }
+            return productList;
+        }
+        catch (SQLException exc) {
+            throw exc;
+        }
+    }
+    
 }

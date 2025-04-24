@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/admin/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/admin/navbar.html"></div>
+
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-5"> Search Purchase </h1>
+
+            <div class="row">
+                <div class="col-xs-4 col-md-6 col-lg-8 mb-3">
+                </div>
+                <div class="col-xs-8 col-md-6 col-lg-4 mb-3">
+                    <form class="input-group" action="/admin/purchase/search" method="get">
+                        <input type="text" class="form-control" name="id" placeholder="Search for purchase's id" aria-label="Purchase's id" aria-describedby="search" th:value="${id}" />
+                        <button class="btn btn-secondary" type="submit" id="search"> Search </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="mb-2 text-danger" th:if="${indexError != null}" th:text="${indexError}" />
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> Id </th>
+                        <th scope="col"> Visitor </th>
+                        <th scope="col"> Placed-date </th>
+                        <th scope="col"> Status </th>
+                        <th scope="col"> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${joinedPurchase != null}">
+                        <td th:text="${joinedPurchase.purchase.getId()}" />
+                        <td>
+                            <a class="text-decoration-none" target="_blank" th:href="@{|/admin/visitor/search?id=${joinedPurchase.visitor.getId()}|}" th:text="${joinedPurchase.visitor.getFullname()}" />
+                        </td>
+                        <td th:text="${joinedPurchase.purchase.getPlacedDate().toString().replace('T', ' ')}" />
+                        
+                        <td class="text-danger" th:if="${joinedPurchase.purchase.getStatus() == 0}" th:text="canceled" />
+                        <td th:if="${joinedPurchase.purchase.getStatus() == 1}" th:text="processing" />
+                        <td class="text-success" th:if="${joinedPurchase.purchase.getStatus() == 2}" th:text="processed" />
+                        
+                        <td>
+                            <div class="mb-1">
+                                <a class="btn btn-light bg-whitesmoke w-100px" th:href="@{|/admin/purchase/view?id=${joinedPurchase.purchase.getId()}|}">
+                                    <i class="fas fa-eye me-1"></i> View
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div th:replace="part/admin/script.html"></div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head th:insert="part/head.html">
+    <!-- -->
+</head>
+<body>
+    <div th:replace="part/navbar.html"></div>
+    
+    <div class="container my-5">
+        <h1 class="mb-5"> Your cart </h1>
+        
+        <table class="table">
+            <form action="/cart/purchase">
+                <thead>
+                    <th scope="col"> Product </th>
+                    <th scope="col"> Price ($) </th>
+                    <th scope="col"> Discount (%) </th>
+                    <th scope="col"> Promotion </th>
+                    <th scope="col"> Quantity </th>
+                    <th scope="col"> Action </th>
+                </thead>
+                <tbody>
+                    <tr th:each="joinedProduct : ${joinedProductList}">
+                        <input type="hidden" name="product-id" th:value="${joinedProduct.product.getId()}" />
+                        <td th:text="${joinedProduct.product.getName()}" />
+                        <td th:text="${joinedProduct.product.getPrice()}" />
+                        <td th:text="${joinedProduct.product.getDiscount()}" />
+                        <td th:utext="${joinedProduct.product.getPromotion()}" />
+                        <td> 1 </td>
+                        <td>
+                            <a class="btn btn-danger btn-delete-cart" th:href="@{|/cart/remove?product-id=${joinedProduct.product.getId()}|}">
+                                <i class="fas fa-trash"></i> Remove
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                <button type="submit" class="btn btn-primary"> Place order </button>
+            </form>
+        </table>
+    </div>
+    
+    <div th:replace="part/footer.html"></div>
+
+    <div th:replace="part/script.html"></div>
+</body>
+</html>
+ 

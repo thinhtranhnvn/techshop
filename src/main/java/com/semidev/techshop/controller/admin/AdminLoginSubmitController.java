@@ -24,6 +24,8 @@ public class AdminLoginSubmitController {
         @RequestParam(name="username", required=true) String username,
         @RequestParam(name="password", required=true) String password
     ) {
+        session.setAttribute("submittedUsername", username);
+        session.setAttribute("submittedPassword", password);
         try {
             var admin = AdministratorService.selectAdministratorByLoginInfo(username, password);
             if (admin != null) {
@@ -38,8 +40,6 @@ public class AdminLoginSubmitController {
                 }
             }
             else {
-                session.setAttribute("submittedUsername", username);
-                session.setAttribute("submittedPassword", password);
                 session.setAttribute("loginError", "Invalid login info");
                 return "redirect:" + session.getAttribute("returnURL");
             }

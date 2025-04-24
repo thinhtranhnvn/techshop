@@ -1,0 +1,68 @@
+<header class="bg-primary">
+    <div class="container">
+        <div class="row py-3 align-items-center">
+            <div class="col">
+                <a href="/" class="logo"> T E C H S H O P </a>
+            </div>
+            
+            <div class="col">
+                <form class="input-group" action="/search">
+                    <input type="text" class="form-control" placeholder="Search for product's name" aria-label="Product's name" aria-describedby="button-addon2" name="keywords" th:value="${keywords != null} ? ${keywords} : ''">
+                    <button class="btn btn-primary bg-primary-hover" type="submit" id="button-addon2"> Search </button>
+                </form>
+            </div>
+
+            <div class="col text-end">
+                <a class="cart bg-primary-hover" href="/cart/view">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg border-bottom" data-bs-theme="light">
+    <div class="container">
+        <a class="navbar-brand" href="/"> Home </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Products
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li th:each="category : ${categoryList}">
+                            <a class="dropdown-item" th:href="@{|/category/view?slug=${category.getSlug()}|}" th:text="${category.getName()}">
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" th:each="page : ${pageList}">
+                    <a class="nav-link" th:href="@{|/page/view?slug=${page.getSlug()}|}" th:text="${page.getMenuName()}" />
+                </li>
+            </ul>
+            
+            <ul th:if="${visitorUsername == null}" class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login"> Login </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup"> Signup </a>
+                </li>
+            </ul>
+            
+            <ul th:if="${visitorUsername != null}" class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/purchase/index"> Purchases </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout"> Logout </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

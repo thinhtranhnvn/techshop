@@ -300,4 +300,42 @@ public class PageService {
         }
     }
     
+    public static ArrayList<Page> selectAllPageOrderByPriorityDesc() throws SQLException
+           , ExceptionInvalidPageId
+           , ExceptionInvalidPageTitle
+           , ExceptionInvalidPageMenuName
+           , ExceptionInvalidPageContent
+           , ExceptionInvalidPageSlug
+           , ExceptionInvalidPagePriority
+           , ExceptionNullPageEditedDate
+           , ExceptionInvalidPageEditedBy
+    {
+        try (var connection = Database.getConnection()) {
+            var sql = "SELECT id, title, menu_name, content, slug, priority, edited_date, edited_by "
+                    + "FROM page "
+                    + "ORDER BY priority DESC";
+            var statement = connection.prepareStatement(sql);
+            var result = statement.executeQuery();
+            var pageList = new ArrayList<Page>();
+            while (result.next()) {
+                var id       = result.getInt("id");
+                var title    = result.getString("title");
+                var menuName = result.getString("menu_name");
+                var content  = result.getString("content");
+                var slug     = result.getString("slug");
+                var priority = result.getInt("priority");
+                var dateString = result.getString("edited_date");
+                var formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                var editedDate = LocalDateTime.parse(dateString, formatter);
+                var editedBy = result.getString("edited_by");
+                var record = Page.createInstance(id, title, menuName, content, slug, priority, editedDate, editedBy);
+                pageList.add(record);
+            }
+            return pageList;
+        }
+        catch (SQLException exc) {
+            throw exc;
+        }
+    }
+    
 }
