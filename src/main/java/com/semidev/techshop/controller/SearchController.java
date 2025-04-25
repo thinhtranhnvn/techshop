@@ -23,6 +23,7 @@ public class SearchController {
     ) {
         try {
             model.addAttribute("title", "Search products");
+            model.addAttribute("keywords", keywords);
             model.addAttribute("visitorUsername", session.getAttribute("visitorUsername"));
             var categoryList = CategoryService.selectAllCategoryOrderByNameAsc();
             model.addAttribute("categoryList", categoryList);
